@@ -1,0 +1,66 @@
+.form{
+    background-image: 
+    linear-gradient(110deg, white 0%, white 50% , transparent 50%),
+    url('/src/Css/components/MRI.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 30rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px  rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
+.custom-form{
+    width: 50%;
+}
+
+.form-control{
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-control label,
+.form-control input{
+    display: block;
+}
+
+.form-control input{
+    padding: 20px 20px;
+    outline: none;
+    border-radius: 3px;
+    border: 0;
+    background-color: white;
+    width: 80%;
+    border-bottom: 3px solid transparent;
+    font-family: "Lato",sans-serif;
+    box-shadow: 0 0 10px rgba(153, 152, 152) inset;
+}
+
+.form-control input:focus:valid{
+    border-bottom: 3px solid #134d6e;
+}
+.form-control input:focus:not(:valid){
+    border-bottom: 3px solid red;
+}
+
+
+.form-control input:placeholder-shown + label{
+    opacity: 0;
+    visibility: hidden;
+    top: 20px;  
+}
+
+.form-control label{
+    position: absolute;
+    top: -20px;
+    left: 0px;
+    font-size: 13px;
+    color: gray;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+
+

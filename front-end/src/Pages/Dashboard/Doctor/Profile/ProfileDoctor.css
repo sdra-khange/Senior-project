@@ -1,0 +1,134 @@
+ProfileDoctor.css
+
+.doctor-profile-container {
+    display: flex;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+.doctor-profile-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.profile-top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.left-section h3 {
+    font-size: 28px;
+    color: #2c3e50;
+}
+
+.right-section {
+    position: relative;
+}
+
+.profile-picture {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image {
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 450px;
+    border: 2px solid #3498db;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.doctor-profile-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    width: 100%;
+    margin-left: 300px;
+    max-width: 865px;
+    /* margin: 0 auto; */
+}
+
+.doctor-profile-form h3 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.doctor-profile-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+.doctor-profile-form input,
+.doctor-profile-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.change-picture-btn {
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.save-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.save-button:hover {
+    background-color: #2980b9;
+}
+
+.message {
+    color: green;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-top-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-picture {
+        margin-top: 20px;
+    }
+}
+
+.doctor-profile-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.doctor-profile-form input,
+.doctor-profile-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+

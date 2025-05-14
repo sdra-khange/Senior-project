@@ -1,0 +1,182 @@
+.view-list-appointment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.view-list-appointment-container h1 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.message {
+    background-color: #e0ffe0;
+    border: 1px solid #b2ffb2;
+    color: #2e7d32;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.session-table {
+    width: 70%;
+    max-width: 1200px;
+    margin-left: 100px;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background-color: #fff;
+}
+
+.session-table th,
+.session-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.session-table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.session-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.session-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.session-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.session-actions .delete-button {
+    background-color: #e53935;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.session-actions .delete-button:hover {
+    background-color: #d32f2f;
+}
+
+@media (min-width: 768px) {
+    .view-list-appointment-container {
+        padding: 40px;
+    }
+
+    .session-table {
+        margin-bottom: 40px;
+    }
+
+    .session-actions {
+        padding: 20px;
+    }
+}
+/* Add this to ViewListAppointment.css */
+
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px; /* Width of the modal */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Edit Button Styles */
+.session-actions .edit-button {
+    background-color: #4caf50; /* Green color */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.session-actions .edit-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Delete Button Styles */
+.session-actions .delete-button {
+    background-color: #e53935; /* Red color */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.session-actions .delete-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}

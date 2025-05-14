@@ -1,0 +1,93 @@
+.containers {
+    display: flex;
+    margin-top: 60px; 
+}
+
+.test-detail {
+    margin-left: calc(250px + 20px); 
+    margin-top: 70px;
+    margin-right: 74px;
+    padding: 20px; 
+    background-color: #f9f9f9; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    flex: 1;
+}
+
+.test-detail h1 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.test-detail form {
+    margin-bottom: 20px;
+}
+
+.test-detail form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.test-detail form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.test-detail form button:hover {
+    background-color: #218838;
+}
+
+.test-detail p {
+    color: green;
+    font-weight: bold;
+}
+
+.question-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.question-list ul li.question-box {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.question-list ul li button.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.question-list ul li button.delete-button:hover {
+    background-color: #c82333;
+}
+
+.question-list ul li a.view-button {
+    text-decoration: none;
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.question-list ul li a.view-button:hover {
+    background-color: #218838;
+}

@@ -1,0 +1,51 @@
+.containers {
+    display: flex;
+    margin-top: 60px; 
+}
+.domain-detail { 
+    margin-left: calc(250px + 20px); 
+    margin-top: 70px;
+    margin-right: 74px;
+    padding: 20px; 
+    background-color: #f9f9f9; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    flex: 1;
+}
+
+.domain-detail h1 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.domain-detail form {
+    margin-bottom: 20px;
+}
+
+.domain-detail form input,
+.domain-detail form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.domain-detail form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.domain-detail form button:hover {
+    background-color: #218838;
+}
+
+.domain-detail p {
+    color: green;
+    font-weight: bold;
+}

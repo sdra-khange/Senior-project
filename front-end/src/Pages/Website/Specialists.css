@@ -1,0 +1,108 @@
+/* .specialists-content {
+    padding: 60px 50px;
+    text-align: center;
+}
+
+.specialists-content h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.specialists-content p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.doctor-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.doctor-signup, .doctor-login {
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.doctor-signup {
+    background-color: #0066cc;
+    color: white;
+}
+
+.doctor-login {
+    background-color: white;
+    color: #0066cc;
+    border: 2px solid #0066cc;
+}
+
+.doctor-signup:hover {
+    background-color: #0052a3;
+}
+
+.doctor-login:hover {
+    background-color: #f5f9fc;
+} */
+ 
+
+
+
+
+.specialists-page {
+    background-image: url('./py14.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.specialists-content {
+    padding: 100px 50px;
+    text-align: left;
+}
+
+.specialists-content h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.specialists-content p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.doctor-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: left;
+}
+
+.doctor-signup, .doctor-login {
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.doctor-signup {
+    background-color: #0066cc;
+    color: white;
+}
+
+.doctor-login {
+    background-color: white;
+    color: #0066cc;
+    border: 2px solid #0066cc;
+}
+
+.doctor-signup:hover {
+    background-color: #0052a3;
+}
+
+.doctor-login:hover {
+    background-color: #f5f9fc;
+} 

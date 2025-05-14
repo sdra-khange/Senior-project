@@ -1,0 +1,74 @@
+/* app/Pages/Dashboard/Doctor/ManageBookingSchedule/GenerateSessions.css */
+
+.generate-sessions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150vh; /* Full height of the viewport */
+    background-color: #f4f4f4;
+}
+
+.generate-sessions-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 400px; /* Set a fixed width for the card */
+    text-align: center;
+}
+
+.generate-sessions-title {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.generate-sessions-message {
+    color: green; /* Success message color */
+    margin-bottom: 15px;
+}
+
+.generate-sessions-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Full width for the form */
+}
+
+.generate-sessions-label {
+    text-align: left; /* Align labels to the left */
+    margin: 10px 0 5px; /* Space above and below the label */
+    color: #555; /* Label color */
+}
+
+.generate-sessions-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+.generate-sessions-input:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.generate-sessions-button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%; /* Full width for the button */
+}
+
+.generate-sessions-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.generate-sessions-button:active {
+    background-color: #004085; /* Even darker shade when active */
+}

@@ -1,0 +1,49 @@
+
+.about-page {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.about-content {
+    padding: 100px 50px;
+    text-align: left;
+}
+
+.about-content h2 {
+    font-size: 40px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.about-content p ,h3{
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+    text-align: center;
+
+}
+
+.services-icons {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.service {
+    width: 150px;
+    text-align: center;
+}
+
+.service .icon {
+    font-size: 48px;
+    color: #0066cc;
+    margin-bottom: 10px;
+}
+
+.service p {
+    font-size: 18px;
+    color: #666;
+}
+

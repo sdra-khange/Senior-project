@@ -1,0 +1,39 @@
+.hero-section {
+    background-color: #f5f9fc;
+    padding: 60px 50px;
+    min-height: calc(100vh - 80px);
+    background-image: url('../../Css/MRI.jpg');
+    background-size: cover;
+    background-position: right center;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.signup-button {
+    background-color: #0066cc;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.signup-button:hover {
+    background-color: #0052a3;
+} 

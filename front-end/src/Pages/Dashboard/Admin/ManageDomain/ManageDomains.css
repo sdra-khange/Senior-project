@@ -1,0 +1,94 @@
+.containers {
+    display: flex;
+}
+
+.manage-domains {
+    margin-left: 280px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    flex: 1;
+    margin-top: 75px;
+    display: flex;
+    flex-direction: column;
+}
+
+.domain-create-form, .domain-list {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.domain-create-form h2, .domain-list h2 {
+    color: #333;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.domain-create-form form input,
+.domain-create-form form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.domain-create-form form button {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.domain-create-form form button:hover {
+    background-color: #195591;
+}
+
+.domain-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.domain-list ul li.domain-box {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.domain-list ul li button.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.domain-list ul li button.delete-button:hover {
+    background-color: #c82333;
+}
+
+.domain-list ul li a.view-button {
+    text-decoration: none;
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.domain-list ul li a.view-button:hover {
+    background-color: #218838;
+}

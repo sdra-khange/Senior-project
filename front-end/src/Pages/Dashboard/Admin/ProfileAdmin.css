@@ -1,0 +1,88 @@
+.admin-page {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-content {
+  flex: 1;
+  margin-left: 455px;
+  padding: 47px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.profile-form {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 440px;
+}
+
+.profile-form h3 {
+  margin-bottom: 15px;
+  color: #0f4c81;
+}
+
+.profile-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="password"],
+.profile-form input[type="file"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: block;
+}
+
+.profile-image {
+  display: block;
+  margin: 0 auto 15px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.change-picture-btn {
+  background: #0f4c81;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.change-picture-btn:hover {
+  background: #0c3e68;
+}
+
+.form-buttons {
+  text-align: right;
+}
+
+.save-button {
+  background: #0f4c81;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background: #0c3e68;
+}
+
+.message {
+  margin-top: 15px;
+  color: green;
+  font-weight: bold;
+} 
