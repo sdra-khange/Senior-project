@@ -32,7 +32,7 @@ urlpatterns = [
     path('password',ChangePasswordView.as_view(),name='password'),
     # Change user info like a profile photo and username 
     path('account-info',updateUserInfo.as_view(),name='account_info'),
-        # view user info 
+    # view user info 
     path('user/<int:pk>',userInfoView.as_view(),name='user'),
     # add info to profile
     path('profile/create/', DoctorProfileCreateView.as_view(), name='doctor-profile-create'),
@@ -42,5 +42,4 @@ urlpatterns = [
     
     #Patient 
     path('patient-profile/', PatientProfileView.as_view(), name='patient-profile'),
-
 ]

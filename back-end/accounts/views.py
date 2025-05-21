@@ -155,19 +155,35 @@ class DoctorProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        user = get_object_or_404(User, id=request.user.id)
-        doctor_profile = get_object_or_404(DoctorProfile, user=user)
-        serializer = DoctorProfileSerializer(doctor_profile)
-        return Response(serializer.data)
+        try:
+            user = request.user
+            doctor_profile = DoctorProfile.objects.get(user=user)
+            serializer = DoctorProfileSerializer(doctor_profile)
+            return Response(serializer.data)
+        except DoctorProfile.DoesNotExist:
+            # إذا لم يكن الملف الشخصي موجوداً، قم بإنشائه
+            serializer = DoctorProfileSerializer(data={})
+            if serializer.is_valid():
+                doctor_profile = serializer.save(user=user)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
-        user = get_object_or_404(User, id=request.user.id)
-        doctor_profile = get_object_or_404(DoctorProfile, user=user)
-        serializer = DoctorProfileSerializer(doctor_profile, data=request.data, partial=True) 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = request.user
+            doctor_profile = DoctorProfile.objects.get(user=user)
+            serializer = DoctorProfileSerializer(doctor_profile, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except DoctorProfile.DoesNotExist:
+            # إذا لم يكن الملف الشخصي موجوداً، قم بإنشائه
+            serializer = DoctorProfileSerializer(data=request.data)
+            if serializer.is_valid():
+                doctor_profile = serializer.save(user=user)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

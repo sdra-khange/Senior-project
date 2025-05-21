@@ -1,50 +1,63 @@
-
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaUser, FaChartBar, FaGlobe, FaStethoscope, FaBars,FaTasks } from 'react-icons/fa';
+import { FaUser, FaChartBar, FaGlobe, FaStethoscope, FaTasks, FaAngleLeft } from 'react-icons/fa';
 import './Sidebar.css';
 
 export default function Sidebar() {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
 
     const toggleSidebar = () => {
-        setIsOpen(!isOpen);
+        setIsCollapsed(!isCollapsed);
     };
 
     return (
-        <>
-            <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
-                <FaBars />
+        <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+            <button className="toggle-btn" onClick={toggleSidebar} title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}>
+                <FaAngleLeft size={16} />
             </button>
-            <div className={`sidebar ${isOpen ? 'open' : 'close'}`}>
-                <ul className="sidebar-list">
-                    <li>
-                        <NavLink to="/admin/profile">
-                            <FaUser className="sidebar-icon" /> Profile
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/admin/dashboard">
-                            <FaChartBar className="sidebar-icon" /> Dashboard
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/admin/manage-domains">
-                            <FaGlobe className="sidebar-icon" /> Manage Domains
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/admin/manage-doctors">
-                            <FaStethoscope className="sidebar-icon" /> Manage Doctors
-                        </NavLink>
-                    </li>
-                    <li>
-                    <NavLink to="/admin/manage-tests">
-                            <FaTasks className="sidebar-icon" /> Manage Tests
+            
+            <ul className="sidebar-list">
+                <li>
+                    <NavLink to="/admin/dashboard">
+                        <FaChartBar className="sidebar-icon" />
+                        <span>Dashboard</span>
                     </NavLink>
-                    </li>
-                </ul>
+                </li>
+                <li>
+                    <NavLink to="/admin/profile">
+                        <FaUser className="sidebar-icon" />
+                        <span>Profile</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/admin/manage-domains">
+                        <FaGlobe className="sidebar-icon" />
+                        <span>Manage Domains</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/admin/manage-doctors">
+                        <FaStethoscope className="sidebar-icon" />
+                        <span>Manage Doctors</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/admin/manage-tests">
+                        <FaTasks className="sidebar-icon" />
+                        <span>Manage Tests</span>
+                    </NavLink>
+                </li>
+            </ul>
+            
+            <div className="admin-user">
+                <div className="admin-user-avatar">
+                    A
+                </div>
+                <div className="admin-user-info">
+                    <div className="admin-user-name">Admin User</div>
+                    <div className="admin-user-role">Administrator</div>
+                </div>
             </div>
-        </>
+        </div>
     );
 }

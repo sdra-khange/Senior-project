@@ -6,7 +6,7 @@
     height: 60px;
     background-color: white;
     padding: 0 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     position: fixed;
     top: 0;
     left: 0;
@@ -14,13 +14,76 @@
 }
 
 .doctor-logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #0066cc;
+    font-size: 20px;
+    font-weight: 600;
+    color: #6c5ce7;
+    text-decoration: none;
+}
+
+.page-info {
+    flex: 1;
+    margin: 0 95px;
 }
 
 .doctor-page-title {
-    font-size: 20px;
-    color: #0066cc;
-    font-weight: 900;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.page-subtitle {
+    color: #666;
+    font-size: 13px;
+    margin: 2px 0 0 0;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background: #f8f9fe;
+    border-radius: 8px;
+    padding: 6px 12px;
+    width: 300px;
+}
+
+.search-container input {
+    border: none;
+    background: transparent;
+    padding: 5px;
+    width: 100%;
+    outline: none;
+    color: #666;
+}
+
+.search-container svg {
+    color: #666;
+    width: 16px;
+    height: 16px;
+}
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

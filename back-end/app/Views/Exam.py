@@ -10,64 +10,92 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
+
 # Create your views here.
 
-
-# to restore all domain and to create domain
+#############################################################################################
 class DomainListCreate(APIView):
     serializer_class = DomainSerializer
     
     def get(self, request: Request, *args, **kwargs):
+        # Extract search and filter criteria from query parameters
+        search_query = request.query_params.get('search', '')
+        status_filter = request.query_params.get('status', '')
+        sort_by = request.query_params.get('sort_by', '-CreatedDate')
+
+        # Start with all domains
         domains = Domain.objects.all()
+
+        # Apply search filter if provided
+        if search_query:
+            domains = domains.filter(
+                Q(DomainName__icontains=search_query) |  # Match domain name (case insensitive)
+                Q(DomainDescription__icontains=search_query)  # Match domain description (case insensitive)
+            )
+
+        # Apply status filter if provided
+        if status_filter and status_filter.lower() != 'all statuses':
+            domains = domains.filter(Status=status_filter)
+
+        # Apply sorting based on query parameter
+        if sort_by == 'name_asc':
+            domains = domains.order_by('DomainName')  
+        elif sort_by == 'name_desc':
+            domains = domains.order_by('-DomainName') 
+        elif sort_by == 'date_asc':
+            domains = domains.order_by('CreatedDate')  
+        else:  # date_desc (default)
+            domains = domains.order_by('-CreatedDate')  
+
         serializer = self.serializer_class(domains, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK) 
     
     def post(self, request: Request, *args, **kwargs):
+        # Create a new domain entry
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
             response = {
-                "message": "Domain created",
-                "data": serializer.data
+                "message": "Domain created",  
+                "data": serializer.data  
             }
-            return Response(data=response, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=response, status=status.HTTP_201_CREATED) 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
 
 
-# To Update And Delete And Retrieve Domain 
 class DomainRetrieveUpdateDelete(APIView):
     serializer_class = DomainSerializer
-    def get(self, request: Request, Domain_ID:int):
-        domain=get_object_or_404(Domain,pk=Domain_ID)
-        serializer = self.serializer_class(instance=domain)
-        
-        return Response(data=serializer.data, status=status.HTTP_200_OK)
-
     
+    def get(self, request: Request, Domain_ID:int):
+        # Retrieve a specific domain by ID
+        domain = get_object_or_404(Domain, pk=Domain_ID)
+        serializer = self.serializer_class(instance=domain)
+        return Response(data=serializer.data, status=status.HTTP_200_OK) 
     
     def put(self, request: Request, Domain_ID:int):
-        domain=get_object_or_404(Domain,pk=Domain_ID)
-        data=request.data
-        serializer=self.serializer_class(instance=domain,data=data)
+        # Update an existing domain
+        domain = get_object_or_404(Domain, pk=Domain_ID)
+        data = request.data
+        serializer = self.serializer_class(instance=domain, data=data)
         
         if serializer.is_valid():
             serializer.save()
-            response={
-                "message":"Domain is updated successfully",
-                "data":serializer.data
+            response = {
+                "message": "Domain is updated successfully", 
+                "data": serializer.data 
             }
-            return Response(data=response, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            
-
+            return Response(data=response, status=status.HTTP_200_OK)  
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
+    
     def delete(self, request: Request, Domain_ID:int):
-        domain=get_object_or_404(Domain,pk=Domain_ID)
+        # Delete a specific domain
+        domain = get_object_or_404(Domain, pk=Domain_ID)
         domain.delete()
-        return Response( status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT) 
 
 
-
-# ####################################
+#############################
 
 
 class TestListCreate(APIView):

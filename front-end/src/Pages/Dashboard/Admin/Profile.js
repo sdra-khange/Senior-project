@@ -13,6 +13,7 @@ const Profile = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [profileMessage, setProfileMessage] = useState('');
     const [passwordMessage, setPasswordMessage] = useState('');
+    const [activeTab, setActiveTab] = useState('profile');
 
     useEffect(() => {
         const storedUserId = localStorage.getItem('userId');
@@ -31,9 +32,9 @@ const Profile = () => {
                 try {
                     const response = await axiosProfile.get(`/auth/user/${userId}`);
                     const data = response.data.data;
-                    setUsername(data.username); // تعيين اسم المستخدم الحالي
-                    setProfilePhoto(data.profile_photo); // تعيين الصورة الشخصية الحالية
-                    localStorage.setItem('profilePhoto', data.profile_photo); // تخزين الصورة الشخصية في الذاكرة المحلية
+                    setUsername(data.username);
+                    setProfilePhoto(data.profile_photo);
+                    localStorage.setItem('profilePhoto', data.profile_photo);
                 } catch (error) {
                     console.error("There was an error fetching the user info!", error);
                 }
@@ -51,7 +52,6 @@ const Profile = () => {
             if (profilePhoto && typeof profilePhoto !== 'string') {
                 formData.append('profile_photo', profilePhoto);
             }
-            console.log([...formData]); // تحقق من محتويات البيانات المرسلة
             const response = await axiosProfile.patch('/auth/account-info', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -59,15 +59,11 @@ const Profile = () => {
             });
             if (response.status === 200) {
                 setProfileMessage('Your profile has been updated successfully.');
-                // تحديث الحالة بالصورة التي تم تحميلها وتخزينها في الذاكرة المحلية
                 const updatedPhoto = typeof profilePhoto === 'string' ? profilePhoto : URL.createObjectURL(profilePhoto);
                 setProfilePhoto(updatedPhoto);
                 localStorage.setItem('profilePhoto', updatedPhoto);
-            } else {
-                setProfileMessage('An unexpected error occurred.');
             }
         } catch (error) {
-            console.error('Error updating profile:', error.response ? error.response.data : error.message);
             setProfileMessage('An error occurred while updating the profile.');
         }
     };
@@ -86,50 +82,138 @@ const Profile = () => {
             });
             if (response.status === 200) {
                 setPasswordMessage('Password changed successfully.');
-            } else {
-                setPasswordMessage('An unexpected error occurred.');
+                setOldPassword('');
+                setNewPassword('');
+                setConfirmPassword('');
             }
         } catch (error) {
-            console.error('Error changing password:', error.response ? error.response.data : error.message);
             setPasswordMessage('An error occurred while changing the password.');
         }
     };
 
     return (
         <div className="admin-page">
-            <NavBarAdmin className="nav-bar" />
-            <Sidebar className="sidebar" />
-            <div className="content-wrapper">
-                <div className="profile-content">
-                    <h1>Profile</h1>
+            <Sidebar />
+            <NavBarAdmin />
+            <div className="profile-content">
+                <div className="profile-header">
+                    <img src={profilePhoto || '/default-avatar.png'} alt="Profile" />
+                    <div className="profile-header-text">
+                        <h1>Admin Profile</h1>
+                        <p>Manage your account settings and preferences</p>
+                    </div>
+                </div>
+
+                <div className="tab-container">
+                    <button 
+                        className={`tab-button ${activeTab === 'profile' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('profile')}
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Profile
+                    </button>
+                    <button 
+                        className={`tab-button ${activeTab === 'photo' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('photo')}
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="M21 15l-5-5L5 21" />
+                        </svg>
+                        Photo
+                    </button>
+                    <button 
+                        className={`tab-button ${activeTab === 'password' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('password')}
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        Password
+                    </button>
+                </div>
+
+                {activeTab === 'profile' && (
                     <form onSubmit={updateProfile} className="profile-form">
-                        <h3>Modify your account information here</h3>
-                        <label>Username</label>
-                        <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-                        {profilePhoto && <img src={typeof profilePhoto === 'string' ? profilePhoto : URL.createObjectURL(profilePhoto)} alt="Profile" className="profile-image" />}
-                        <label>Change Profile Photo</label>
-                        <input type="file" onChange={(e) => setProfilePhoto(e.target.files[0])} className="change-picture-btn" />
-                        <div className="form-buttons">
-                            <button type="submit" className="save-button">Update Profile</button>
+                        <div className="form-section">
+                            <h3>Update Username</h3>
+                            <p>Change how your name appears across your account</p>
+                            <input 
+                                type="text" 
+                                placeholder="Username" 
+                                value={username} 
+                                onChange={(e) => setUsername(e.target.value)} 
+                            />
+                        </div>
+                        <button type="submit" className="save-button">Update Username</button>
+                        {profileMessage && <p className="message">{profileMessage}</p>}
+                    </form>
+                )}
+
+                {activeTab === 'photo' && (
+                    <form onSubmit={updateProfile} className="profile-form">
+                        <div className="form-section">
+                            <h3>Change Profile Photo</h3>
+                            <p>Upload a new profile picture or drag and drop</p>
+                            <div className="profile-image-upload">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                </svg>
+                                <p>Drag & drop your image here</p>
+                                <p>or</p>
+                                <input
+                                    type="file"
+                                    id="profile-photo"
+                                    style={{ display: 'none' }}
+                                    onChange={(e) => setProfilePhoto(e.target.files[0])}
+                                    accept="image/jpeg,image/png,image/gif"
+                                />
+                                <label htmlFor="profile-photo" className="browse-files">Browse Files</label>
+                                <p className="supported-formats">Supported formats: JPG, PNG, GIF (Max size: 5MB)</p>
+                            </div>
+                            <button type="submit" className="save-button">Update Photo</button>
                             {profileMessage && <p className="message">{profileMessage}</p>}
                         </div>
                     </form>
+                )}
+
+                {activeTab === 'password' && (
                     <form onSubmit={changePassword} className="profile-form">
-                        <label>Old Password</label>
-                        <input type="password" placeholder="Old Password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
-                        <label>New Password</label>
-                        <input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                        <label>Confirm New Password</label>
-                        <input type="password" placeholder="Confirm New Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                        <div className="form-buttons">
-                            <button type="submit" className="save-button">Change Password</button>
-                            {passwordMessage && <p className="message">{passwordMessage}</p>}
+                        <div className="form-section">
+                            <h3>Change Password</h3>
+                            <p>Update your password to keep your account secure</p>
+                            <input
+                                type="password"
+                                placeholder="Current Password"
+                                value={oldPassword}
+                                onChange={(e) => setOldPassword(e.target.value)}
+                            />
+                            <input
+                                type="password"
+                                placeholder="New Password"
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Confirm New Password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
                         </div>
+                        <button type="submit" className="save-button">Update Password</button>
+                        {passwordMessage && <p className="message">{passwordMessage}</p>}
                     </form>
-                </div>
+                )}
             </div>
         </div>
     );
 };
 
 export default Profile;
+

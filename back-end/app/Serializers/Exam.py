@@ -3,10 +3,17 @@
 from rest_framework import serializers
 from ..Models.exam import Domain, Test, Question ,Answer
 
+
+
 class DomainSerializer(serializers.ModelSerializer):
     class Meta:
         model = Domain
-        fields = '__all__' 
+        fields = ['DomainID', 'DomainName', 'DomainDescription', 'Status', 'CreatedDate']
+
+# class DomainSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Domain
+#         fields = '__all__' 
 
 
 

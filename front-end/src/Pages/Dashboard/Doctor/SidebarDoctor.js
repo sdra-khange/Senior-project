@@ -1,64 +1,75 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaUserAlt, FaChartBar, FaUsersCog, FaClipboardList, FaCalendarCheck, FaAddressBook, FaEdit, FaSignOutAlt, FaBars } from 'react-icons/fa';
-import './SidebarDoctor.css'; 
+import { FaUserAlt, FaChartBar, FaUsersCog, FaClipboardList, FaCalendarCheck, FaAddressBook, FaEdit, FaAngleLeft } from 'react-icons/fa';
+import './SidebarDoctor.css';
 
 export default function SidebarDoctor() {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
 
     const toggleSidebar = () => {
-        setIsOpen(!isOpen);
+        setIsCollapsed(!isCollapsed);
     };
 
     return (
-        <>
-            <button className="sidebar-doctor-toggle-btn" onClick={toggleSidebar}>
-                <FaBars />
+        <div className={`doctor-sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+            <button className="doctor-sidebar-toggle-btn" onClick={toggleSidebar} title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}>
+                <FaAngleLeft size={16} />
             </button>
-            <div className={`sidebar-doctor ${isOpen ? 'sidebar-doctor-open' : 'sidebar-doctor-close'}`}>
-                <ul className="sidebar-doctor-list">
-                    <li>
-                        <NavLink to="/doctor/profileDoctor">
-                            <FaUserAlt className="sidebar-doctor-icon" /> Profile
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/doctor/dashboardDoctor">
-                            <FaChartBar className="sidebar-doctor-icon" /> Dashboard
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/doctor/ManageSupportGroup">
-                            <FaUsersCog className="sidebar-doctor-icon" /> Manage Support Group
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/doctor/ViewListAppointment">
-                            <FaClipboardList className="sidebar-doctor-icon" /> View List of Appointment
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/doctor/manage-booking-schedule">
-                            <FaCalendarCheck className="sidebar-doctor-icon" /> Manage Booking Schedule
-                        </NavLink>
-                    </li>
-                    <li>
+            
+            <ul className="doctor-sidebar-list">
+                <li>
+                    <NavLink to="/doctor/dashboardDoctor">
+                        <FaChartBar className="doctor-sidebar-icon" />
+                        <span>Dashboard</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/doctor/profileDoctor">
+                        <FaUserAlt className="doctor-sidebar-icon" />
+                        <span>Profile</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/doctor/ManageSupportGroup">
+                        <FaUsersCog className="doctor-sidebar-icon" />
+                        <span>Manage Support Group</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/doctor/ViewListAppointment">
+                        <FaClipboardList className="doctor-sidebar-icon" />
+                        <span>View List of Appointment</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/doctor/manage-booking-schedule">
+                        <FaCalendarCheck className="doctor-sidebar-icon" />
+                        <span>Manage Booking Schedule</span>
+                    </NavLink>
+                </li>
+                <li>
                     <NavLink to="/doctor/ManageAboutPatient">
-                            <FaAddressBook className="sidebar-doctor-icon" /> Manage About Patient  
+                        <FaAddressBook className="doctor-sidebar-icon" />
+                        <span>Manage About Patient</span>
                     </NavLink>
-                    </li>
-                    <li>
+                </li>
+                <li>
                     <NavLink to="/doctor/ManageContent">
-                            <FaEdit className="sidebar-doctor-icon" /> Manage Content  
+                        <FaEdit className="doctor-sidebar-icon" />
+                        <span>Manage Content</span>
                     </NavLink>
-                    </li>
-                    <li>
-                    <NavLink to="/doctor/manage-tests">
-                            <FaSignOutAlt className="sidebar-doctor-icon" /> Logout  
-                    </NavLink>
-                    </li>
-                </ul>
+                </li>
+            </ul>
+            
+            <div className="doctor-user">
+                <div className="doctor-user-avatar">
+                    D
+                </div>
+                <div className="doctor-user-info">
+                    <div className="doctor-user-name">Doctor User</div>
+                    <div className="doctor-user-role">Doctor</div>
+                </div>
             </div>
-        </>
+        </div>
     );
 }

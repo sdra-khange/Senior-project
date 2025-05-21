@@ -101,6 +101,13 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 
 
 class DoctorProfileSerializer(serializers.ModelSerializer):
+    specialization = serializers.CharField(required=False, allow_blank=True)
+    experience_years = serializers.IntegerField(required=False)
+    age = serializers.IntegerField(required=False)
+    session_duration = serializers.IntegerField(required=False)
+    profile_picture = serializers.ImageField(required=False)
+    session_price = serializers.CharField(required=False, allow_blank=True)
+
     class Meta:
         model = DoctorProfile
         fields = ['id', 'specialization', 'experience_years', 'age', 'session_duration', 'profile_picture', 'session_price']

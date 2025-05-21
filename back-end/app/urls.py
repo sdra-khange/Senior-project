@@ -13,6 +13,10 @@ from .Views.VideoCall import (
     VideoRoomEnd,
     VideoRoomSignal
 )
+from .Views.Chat import (
+    ChatRoomListCreate, ChatRoomDetail,
+    ChatMessages, ChatRoomMembers
+)
 
 urlpatterns = [
     # Domain 
@@ -43,6 +47,13 @@ urlpatterns = [
     path('video-rooms/<str:room_id>/join/', VideoRoomJoin.as_view(), name='video-room-join'),
     path('video-rooms/<str:room_id>/end/', VideoRoomEnd.as_view(), name='video-room-end'),
     path('video-rooms/<str:room_id>/signal/', VideoRoomSignal.as_view(), name='video-room-signal'),
+
+    # Chat URLs
+    path('chat/rooms/', ChatRoomListCreate.as_view(), name='chat-rooms'),
+    path('chat/rooms/<int:room_id>/', ChatRoomDetail.as_view(), name='chat-room-detail'),
+    path('chat/rooms/<int:room_id>/messages/', ChatMessages.as_view(), name='chat-messages'),
+    path('chat/rooms/<int:room_id>/members/', ChatRoomMembers.as_view(), name='chat-room-members'),
+    path('chat/rooms/<int:room_id>/members/<int:member_id>/', ChatRoomMembers.as_view(), name='chat-room-member-delete'),
 ]
 
 
