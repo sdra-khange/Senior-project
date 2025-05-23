@@ -14,6 +14,10 @@ from django.shortcuts import get_object_or_404
 from .models import DoctorProfile, User ,PatientProfile
 from .serializers import DoctorProfileSerializer,PatientProfileSerializer
 from rest_framework import generics, permissions
+from django.db.models import Count
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAdminUser
+
 
 
 # Create your views here.
@@ -211,3 +215,54 @@ class PatientProfileView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except PatientProfile.DoesNotExist:
             return Response({"error": "Patient profile not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+
+
+
+class AdminStatsView(APIView):
+    permission_classes = [IsAdminUser]
+    
+    def get(self, request):
+        total_users = User.objects.count()
+        total_doctors = User.objects.filter(user_type='doctor').count()
+        active_accounts = User.objects.filter(is_active=True).count()
+        
+        doctors = DoctorProfile.objects.select_related('user').all()
+        doctors_data = [{
+            'id': doctor.user.id,
+            'username': doctor.user.username,
+            'email': doctor.user.email,
+            'is_active': doctor.user.is_active,
+            'specialization': doctor.specialization
+        } for doctor in doctors]
+        
+        data = {
+            'total_users': total_users,
+            'total_doctors': total_doctors,
+            'active_accounts': active_accounts,
+            'doctors': doctors_data
+        }
+        
+        serializer = AdminStatsSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data)
+
+class AdminUserListView(APIView):
+    permission_classes = [IsAdminUser]
+    
+    def get(self, request):
+        users = User.objects.filter(is_active=True)
+        serializer = AdminUserListSerializer(users, many=True)
+        return Response(serializer.data)
+
+class AdminDeactivateDoctorView(APIView):
+    permission_classes = [IsAdminUser]
+    
+    def patch(self, request, doctor_id):
+        try:
+            doctor = User.objects.get(id=doctor_id, user_type='doctor')
+            doctor.is_active = False
+            doctor.save()
+            return Response({'message': 'Doctor account deactivated successfully'})
+        except User.DoesNotExist:
+            return Response({'error': 'Doctor not found'}, status=status.HTTP_404_NOT_FOUND)

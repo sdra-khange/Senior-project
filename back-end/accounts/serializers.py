@@ -118,3 +118,16 @@ class PatientProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientProfile
         fields = ['user', 'age', 'medical_record', 'profile_picture']
+        
+        
+
+class AdminStatsSerializer(serializers.Serializer):
+    total_users = serializers.IntegerField()
+    total_doctors = serializers.IntegerField()
+    active_accounts = serializers.IntegerField()
+    doctors = serializers.ListField(child=serializers.DictField())
+
+class AdminUserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'username', 'user_type', 'is_active', 'date_joined']

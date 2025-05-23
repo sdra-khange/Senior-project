@@ -1,3 +1,5 @@
+# type: ignore
+
 from rest_framework import serializers
 from ..Models.Video_call import VideoRoom
 

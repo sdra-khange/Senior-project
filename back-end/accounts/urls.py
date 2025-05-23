@@ -6,10 +6,12 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+
 from .views import (
     SignUpView, LoginView, 
     DoctorLoginView, AdminLoginView, PatientLoginView,ChangePasswordView,updateUserInfo,
-    userInfoView,DoctorProfileView,DoctorProfileCreateView,PatientProfileView
+    userInfoView,DoctorProfileView,DoctorProfileCreateView,PatientProfileView,
+    AdminStatsView, AdminUserListView, AdminDeactivateDoctorView
 )
 
 urlpatterns = [
@@ -42,4 +44,10 @@ urlpatterns = [
     
     #Patient 
     path('patient-profile/', PatientProfileView.as_view(), name='patient-profile'),
+    
+    path('admin/stats/', AdminStatsView.as_view(), name='admin-stats'),
+    path('admin/users/', AdminUserListView.as_view(), name='admin-users-list'),
+    path('admin/deactivate-doctor/<int:doctor_id>/', AdminDeactivateDoctorView.as_view(), name='deactivate-doctor'),
 ]
+
+

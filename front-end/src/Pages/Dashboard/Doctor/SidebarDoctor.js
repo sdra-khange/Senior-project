@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaUserAlt, FaChartBar, FaUsersCog, FaClipboardList, FaCalendarCheck, FaAddressBook, FaEdit, FaAngleLeft } from 'react-icons/fa';
+import { FaUserAlt, FaChartBar, FaUsersCog, FaCalendarCheck, FaAddressBook, FaEdit, FaAngleLeft } from 'react-icons/fa';
 import './SidebarDoctor.css';
+// FaClipboardList
 
 export default function SidebarDoctor() {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -35,7 +36,7 @@ export default function SidebarDoctor() {
                         <span>Manage Support Group</span>
                     </NavLink>
                 </li>
-                <li>
+                {/* <li>
                     <NavLink to="/doctor/ViewListAppointment">
                         <FaClipboardList className="doctor-sidebar-icon" />
                         <span>View List of Appointment</span>
@@ -45,6 +46,12 @@ export default function SidebarDoctor() {
                     <NavLink to="/doctor/manage-booking-schedule">
                         <FaCalendarCheck className="doctor-sidebar-icon" />
                         <span>Manage Booking Schedule</span>
+                    </NavLink>
+                </li> */}
+                <li>
+                    <NavLink to="/doctor/therapy-sessions">
+                        <FaCalendarCheck className="doctor-sidebar-icon" />
+                        <span>Manage Therapy Sessions</span>
                     </NavLink>
                 </li>
                 <li>

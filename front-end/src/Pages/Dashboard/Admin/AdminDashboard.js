@@ -9,7 +9,6 @@ export default function AdminDashboard() {
             <Navbar />
             <Sidebar />
             <div className="content">
-                {/* هنا رح يكون عرض المحتوى المختلف */}
                 <h1>Welcome to Admin Dashboard</h1>
             </div>
         </div>
