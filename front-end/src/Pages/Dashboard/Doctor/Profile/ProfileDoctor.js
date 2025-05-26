@@ -9,7 +9,6 @@ import { FaUser, FaEdit, FaKey, FaCamera } from 'react-icons/fa';
 const cookie = Cookie();
 
 const ProfileDoctor = () => {
-    // تعريف جميع المتغيرات (states)
     const [username, setUsername] = useState('');
     const [profilePhoto, setProfilePhoto] = useState(null);
     const [specialization, setSpecialization] = useState('');

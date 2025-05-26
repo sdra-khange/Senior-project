@@ -117,9 +117,18 @@ class DoctorProfileSerializer(serializers.ModelSerializer):
 class PatientProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientProfile
-        fields = ['user', 'age', 'medical_record', 'profile_picture']
+        fields = [
+            'id', 'age', 'gender', 'allergies', 
+            'chronic_diseases', 'medications',
+            'address', 'medical_record', 
+            'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']
         
-        
+    def validate_age(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("Age must be positive")
+        return value
 
 class AdminStatsSerializer(serializers.Serializer):
     total_users = serializers.IntegerField()

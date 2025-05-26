@@ -11,7 +11,8 @@ from .views import (
     SignUpView, LoginView, 
     DoctorLoginView, AdminLoginView, PatientLoginView,ChangePasswordView,updateUserInfo,
     userInfoView,DoctorProfileView,DoctorProfileCreateView,PatientProfileView,
-    AdminStatsView, AdminUserListView, AdminDeactivateDoctorView
+    AdminStatsView, AdminUserListView, AdminDeactivateDoctorView,
+    PatientProfileView,LogoutView
 )
 
 urlpatterns = [
@@ -42,12 +43,18 @@ urlpatterns = [
     # view doctor profile
     path('profile/', DoctorProfileView.as_view(), name='doctor-profile'),
     
-    #Patient 
-    path('patient-profile/', PatientProfileView.as_view(), name='patient-profile'),
+    # Patient profile endpoints
+    path('patient/profile/', PatientProfileView.as_view(), name='patient-profile'),
+    # path('patient/profile/update/', PatientProfileUpdateView.as_view(), name='patient-profile-update'),
+
     
     path('admin/stats/', AdminStatsView.as_view(), name='admin-stats'),
     path('admin/users/', AdminUserListView.as_view(), name='admin-users-list'),
     path('admin/deactivate-doctor/<int:doctor_id>/', AdminDeactivateDoctorView.as_view(), name='deactivate-doctor'),
+    
+    # Logout 
+    path('logout/', LogoutView.as_view(), name='logout'),
+
 ]
 
 

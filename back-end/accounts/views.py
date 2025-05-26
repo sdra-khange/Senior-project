@@ -17,6 +17,8 @@ from rest_framework import generics, permissions
 from django.db.models import Count
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAdminUser
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 
 
@@ -266,3 +268,92 @@ class AdminDeactivateDoctorView(APIView):
             return Response({'message': 'Doctor account deactivated successfully'})
         except User.DoesNotExist:
             return Response({'error': 'Doctor not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+class PatientProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PatientProfileSerializer
+    
+    def get(self, request):
+        try:
+            # Get or create patient profile
+            patient_profile, created = PatientProfile.objects.get_or_create(
+                user=request.user,
+                defaults={'age': 0}
+            )
+            serializer = self.serializer_class(patient_profile)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    def put(self, request):
+        try:
+            patient_profile = request.user.patient_profile
+            serializer = self.serializer_class(
+                patient_profile,
+                data=request.data,
+                partial=True
+            )
+            
+            if serializer.is_valid():
+                serializer.save()
+                return Response({
+                    "message": "Patient profile updated successfully",
+                    "data": serializer.data
+                }, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+        except PatientProfile.DoesNotExist:
+            return Response(
+                {"error": "Patient profile not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+
+
+class PatientProfileUpdateView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def put(self, request):
+        try:
+            patient_profile = request.user.patient_profile
+            serializer = PatientProfileSerializer(patient_profile, data=request.data, partial=True)
+            
+            if serializer.is_valid():
+                serializer.save()
+                return Response({
+                    "message": "Patient profile updated successfully",
+                    "data": serializer.data
+                }, status=status.HTTP_200_OK)
+                
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+        except PatientProfile.DoesNotExist:
+            return Response(
+                {"error": "Patient profile not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+
+
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({"message": "Logout successful"}, status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

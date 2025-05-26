@@ -66,10 +66,21 @@ class DoctorProfile(models.Model):
 
 
 
-
 class PatientProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='patient_profile')
     age = models.PositiveIntegerField()
-    medical_record = models.FileField(upload_to='medical_record/', null=True, blank=True)
-    def str(self):
+    gender = models.CharField(max_length=10, choices=[
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other')
+    ], blank=True, null=True)
+    allergies = models.TextField(blank=True, null=True)
+    chronic_diseases = models.TextField(blank=True, null=True)
+    medications = models.TextField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    medical_record = models.FileField(upload_to='medical_records/', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
         return f"Patient: {self.user.username}"

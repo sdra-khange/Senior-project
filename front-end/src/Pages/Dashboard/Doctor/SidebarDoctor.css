@@ -159,3 +159,115 @@
     color: #666;
     font-size: 12px;
 }
+
+
+
+/* أنماط زر تسجيل الخروج */
+.logout-link {
+    background: none;
+    border: none;
+    color: #666;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.logout-link:hover {
+    background-color: #f0f7ff;
+    color: #0066cc;
+}
+
+.doctor-sidebar.collapsed .logout-link span {
+    display: none;
+}
+
+/* أنماط رسالة التأكيد */
+.logout-confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.logout-confirmation {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 300px;
+    width: 100%;
+}
+
+.logout-confirmation p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.confirmation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.confirmation-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.confirmation-buttons button:first-child {
+    background-color: #0066cc;
+    color: white;
+}
+
+.confirmation-buttons button:first-child:hover {
+    background-color: #0052a3;
+}
+
+.confirmation-buttons button:last-child {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.confirmation-buttons button:last-child:hover {
+    background-color: #e0e0e0;
+}
+
+/* أنماط رسالة الخطأ */
+.logout-error-message {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffebee;
+    color: #c62828;
+    padding: 12px 25px;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    animation: fadeIn 0.3s;
+    z-index: 1000;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
