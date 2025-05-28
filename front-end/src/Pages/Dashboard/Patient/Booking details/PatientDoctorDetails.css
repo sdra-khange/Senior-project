@@ -1,0 +1,229 @@
+.doctor-details-container {
+    padding: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+
+.loading-container .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    text-align: center;
+    padding: 2rem;
+    color: #e74c3c;
+    font-size: 1.2rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: #4c51bf;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #f0f4f8;
+}
+
+.doctor-header {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.doctor-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #f0f4f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doctor-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.default-avatar {
+    font-size: 3rem;
+    color: #4c51bf;
+}
+
+.doctor-main-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.doctor-main-info h1 {
+    margin: 0 0 0.5rem 0;
+    color: #2c3e50;
+    font-size: 2rem;
+}
+
+.specialization {
+    color: #4c51bf;
+    font-size: 1.2rem;
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+}
+
+.doctor-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f0f4f8;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    color: #2c3e50;
+}
+
+.tabs-container {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 2rem;
+}
+
+.tab-button {
+    padding: 1rem 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #7f8c8d;
+    position: relative;
+}
+
+.tab-button.active {
+    color: #4c51bf;
+    font-weight: 500;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #4c51bf;
+}
+
+.about-section h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.about-section p {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #4a5568;
+}
+
+.about-section h3 {
+    color: #2c3e50;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.sessions-section h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.no-sessions {
+    text-align: center;
+    padding: 2rem;
+    color: #7f8c8d;
+}
+
+.sessions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.session-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+}
+
+.session-date, .session-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+    color: #2c3e50;
+}
+
+.session-type {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background-color: #e0e7ff;
+    color: #4c51bf;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin: 0.8rem 0;
+}
+
+.book-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    background-color: #4c51bf;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.book-button:hover {
+    background-color: #434190;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

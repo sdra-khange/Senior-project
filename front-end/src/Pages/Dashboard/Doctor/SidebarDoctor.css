@@ -252,7 +252,6 @@
     background-color: #e0e0e0;
 }
 
-/* أنماط رسالة الخطأ */
 .logout-error-message {
     position: fixed;
     bottom: 30px;

@@ -4,7 +4,10 @@ from .Views.Sessions import (
     SessionListCreate,
     SessionRetrieveUpdateDelete,
     SessionGenerate,
-    SessionBooking
+    SessionBooking,
+    DoctorListView, DoctorDetailView,
+    DoctorSessionsView, BookSessionView,
+    BookingConfirmationView
 )
 from .Views.VideoCall import (
     VideoRoomListCreate,
@@ -17,6 +20,7 @@ from .Views.Chat import (
     ChatRoomListCreate, ChatRoomDetail,
     ChatMessages, ChatRoomMembers
 )
+
 
 urlpatterns = [
     # Domain 
@@ -54,6 +58,16 @@ urlpatterns = [
     path('chat/rooms/<int:room_id>/messages/', ChatMessages.as_view(), name='chat-messages'),
     path('chat/rooms/<int:room_id>/members/', ChatRoomMembers.as_view(), name='chat-room-members'),
     path('chat/rooms/<int:room_id>/members/<int:member_id>/', ChatRoomMembers.as_view(), name='chat-room-member-delete'),
+    
+    
+    # path booking patient doctor
+    path('doctors/', DoctorListView.as_view(), name='doctor-list'),
+    path('doctors/<int:doctor_id>/', DoctorDetailView.as_view(), name='doctor-detail'),
+    path('doctors/<int:doctor_id>/sessions/', DoctorSessionsView.as_view(), name='doctor-sessions'),
+    path('sessions/book/', BookSessionView.as_view(), name='book-session'),
+    path('bookings/<int:booking_id>/', BookingConfirmationView.as_view(), name='booking-confirmation'),
 ]
+
+
 
 

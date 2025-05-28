@@ -9,34 +9,69 @@ from ..Services.SessionService import SessionService
 from ..Serializers.Sessions import SessionSerializer
 from datetime import datetime
 from accounts.models import User
+from rest_framework.permissions import IsAuthenticated
+from ..Serializers.Sessions import (
+    DoctorListSerializer, DoctorDetailSerializer,
+    SessionSerializer, BookingSerializer,
+    BookingConfirmationSerializer
+)
+from accounts.permissions import IsPatient
+
+# class SessionListCreate(APIView):
+#     serializer_class = SessionSerializer
+
+#     def get(self, request):
+#         # Get query parameters
+#         doctor_id = request.query_params.get('doctor_id')
+#         date = request.query_params.get('date')
+#         session_type = request.query_params.get('session_type')
+
+#         # Use service to get filtered sessions
+#         sessions = SessionService.get_available_sessions(
+#             doctor_id=doctor_id,
+#             date=date,
+#             session_type=session_type
+#         )
+#         serializer = self.serializer_class(sessions, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+
+#     def post(self, request):
+#         serializer = self.serializer_class(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             response = {
+#                 "message": "Session created",
+#                 "data": serializer.data
+#             }
+#             return Response(data=response, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SessionListCreate(APIView):
     serializer_class = SessionSerializer
 
     def get(self, request):
-        # Get query parameters
-        doctor_id = request.query_params.get('doctor_id')
-        date = request.query_params.get('date')
-        session_type = request.query_params.get('session_type')
-
-        # Use service to get filtered sessions
-        sessions = SessionService.get_available_sessions(
-            doctor_id=doctor_id,
-            date=date,
-            session_type=session_type
-        )
-        serializer = self.serializer_class(sessions, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        doctor_id = request.query_params.get('doctor')
+        status = request.query_params.get('status')
+        
+        queryset = Session.objects.all()
+        
+        if doctor_id:
+            queryset = queryset.filter(doctor_id=doctor_id)
+        if status and status != 'All':
+            queryset = queryset.filter(status=status)
+            
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            response = {
-                "message": "Session created",
-                "data": serializer.data
-            }
-            return Response(data=response, status=status.HTTP_201_CREATED)
+            try:
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except ValidationError as e:
+                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SessionRetrieveUpdateDelete(APIView):
@@ -110,3 +145,65 @@ class SessionBooking(APIView):
                 "error": str(e)
             }, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+
+
+# 1. Doctors List
+class DoctorListView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        doctors = User.objects.filter(user_type='doctor', is_active=True)
+        serializer = DoctorListSerializer(doctors, many=True)
+        return Response(serializer.data)
+
+# 2. Doctor Details
+class DoctorDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, doctor_id):
+        try:
+            doctor = User.objects.get(id=doctor_id, user_type='doctor', is_active=True)
+            serializer = DoctorDetailSerializer(doctor)
+            return Response(serializer.data)
+        except User.DoesNotExist:
+            return Response({"error": " The doctor is not existing "}, status=status.HTTP_404_NOT_FOUND)
+
+# 3. Available Sessions to specific doctor
+class DoctorSessionsView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, doctor_id):
+        sessions = Session.objects.filter(doctor_id=doctor_id, status='FREE')
+        serializer = SessionSerializer(sessions, many=True)
+        return Response(serializer.data)
+
+# 4. Book Session
+class BookSessionView(APIView):
+    permission_classes = [IsAuthenticated, IsPatient]
+    
+    def post(self, request):
+        serializer = BookingSerializer(data=request.data)
+        if serializer.is_valid():
+            session = Session.objects.get(id=serializer.validated_data['session_id'])
+            session.status = 'BOOKED'
+            session.patient = request.user
+            session.save()
+            
+            # send accept booking session
+            confirmation_serializer = BookingConfirmationSerializer(session)
+            return Response(confirmation_serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# 5. Booking Confirmation
+class BookingConfirmationView(APIView):
+    permission_classes = [IsAuthenticated, IsPatient]
+    
+    def get(self, request, booking_id):
+        try:
+            booking = Session.objects.get(id=booking_id, patient=request.user)
+            serializer = BookingConfirmationSerializer(booking)
+            return Response(serializer.data)
+        except Session.DoesNotExist:
+            return Response({"error": " This session is not available for booking "}, status=status.HTTP_404_NOT_FOUND)
