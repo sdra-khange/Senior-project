@@ -7,7 +7,7 @@ from .Views.Sessions import (
     SessionBooking,
     DoctorListView, DoctorDetailView,
     DoctorSessionsView, BookSessionView,
-    BookingConfirmationView
+    BookingConfirmationView,PatientBookedSessionsView
 )
 from .Views.VideoCall import (
     VideoRoomListCreate,
@@ -66,6 +66,10 @@ urlpatterns = [
     path('doctors/<int:doctor_id>/sessions/', DoctorSessionsView.as_view(), name='doctor-sessions'),
     path('sessions/book/', BookSessionView.as_view(), name='book-session'),
     path('bookings/<int:booking_id>/', BookingConfirmationView.as_view(), name='booking-confirmation'),
+    # Path to display the patient's booked sessions
+    path('patient/appointments/', PatientBookedSessionsView.as_view(), name='patient-appointments'),
+    # path('patient/appointments/<int:session_id>/', PatientBookedSessionsView.as_view(), name='patient-appointments-delete'),
+    path('patient/appointments/<int:session_id>/cancel/', PatientBookedSessionsView.as_view(), name='patient-appointment-cancel'),
 ]
 
 

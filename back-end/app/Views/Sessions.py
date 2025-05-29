@@ -13,7 +13,8 @@ from rest_framework.permissions import IsAuthenticated
 from ..Serializers.Sessions import (
     DoctorListSerializer, DoctorDetailSerializer,
     SessionSerializer, BookingSerializer,
-    BookingConfirmationSerializer
+    BookingConfirmationSerializer,
+    BookedSessionSerializer
 )
 from accounts.permissions import IsPatient
 
@@ -207,3 +208,57 @@ class BookingConfirmationView(APIView):
             return Response(serializer.data)
         except Session.DoesNotExist:
             return Response({"error": " This session is not available for booking "}, status=status.HTTP_404_NOT_FOUND)
+
+
+# class PatientBookedSessionsView(APIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def get(self, request):
+#         try:
+#             patient = request.user
+#             booked_sessions = Session.objects.filter(
+#                 patient=patient,
+#                 status='BOOKED'
+#             ).order_by('date', 'start_time')
+            
+#             serializer = BookedSessionSerializer(booked_sessions, many=True)
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         except Exception as e:
+#             return Response(
+#                 {"error": str(e)},
+#                 status=status.HTTP_400_BAD_REQUEST
+#             )
+
+class PatientBookedSessionsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            patient = request.user
+            booked_sessions = Session.objects.filter(
+                patient=patient,
+                status='BOOKED'
+            ).order_by('date', 'start_time')
+            
+            serializer = BookedSessionSerializer(booked_sessions, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    def delete(self, request, session_id):
+        try:
+            patient = request.user
+            session = get_object_or_404(Session, id=session_id, patient=patient, status='BOOKED')
+
+            session.patient = None  
+
+            session.status = 'FREE' 
+
+            session.save()
+
+            return Response({"message": "The appointment was successfully deleted."}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

@@ -768,6 +768,7 @@
 // };
 
 // export default TherapySessionManager;
+
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from '../../../../utils/axiosProfile';
 import Cookie from 'cookie-universal';
@@ -960,8 +961,17 @@ const TherapySessionManager = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            await axios.put(`/app/sessions/${currentSession.id}/`, currentSession);
-            setMessage('Session updated successfully');
+            // Create a clean payload object with only the necessary fields
+            const payload = {
+                date: currentSession.date,
+                start_time: currentSession.start_time,
+                end_time: currentSession.end_time,
+                session_type: currentSession.session_type,
+                // Include other required fields if needed
+            };
+            
+            await axios.put(`/app/sessions/${currentSession.id}/`, payload);
+            setMessage('Session updated successfully!');
             fetchSessions();
             setShowEditModal(false);
         } catch (error) {
@@ -976,7 +986,7 @@ const TherapySessionManager = () => {
         setIsLoading(true);
         try {
             await axios.delete(`/app/sessions/${currentSession.id}/`);
-            setMessage('Session deleted successfully');
+            setMessage('Session deleted successfully!');
             fetchSessions();
             setShowDeleteModal(false);
         } catch (error) {

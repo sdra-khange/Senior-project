@@ -163,6 +163,7 @@ class Session(models.Model):
         choices=REAL_STATUS_CHOICES, 
         default='PENDING'
     )
+    booked_at = models.DateTimeField(auto_now_add=True, null=True)  
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()

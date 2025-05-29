@@ -25,7 +25,7 @@ import TherapySessionManager from './Pages/Dashboard/Doctor/TherapySessionManage
 import ProfilePatient from './Pages/Dashboard/Patient/Profile/ProfilePatient';
 import PatientDoctorsList from './Pages/Dashboard/Patient/Booking details/PatientDoctorsList';
 import PatientDoctorDetails from './Pages/Dashboard/Patient/Booking details/PatientDoctorDetails';
-
+import PatientAppointments from './Pages/Dashboard/Patient/PatientAppointments/PatientAppointments'
 
 function App() {
   return (
@@ -125,6 +125,11 @@ function App() {
         <Route path="/patient/PatientDoctorsList/:id" element={
           <ProtectedRoute allowedUserType="patient">
             <PatientDoctorDetails />
+          </ProtectedRoute>
+        } />
+        <Route path="/patient/appointments" element={
+          <ProtectedRoute allowedUserType="patient">
+            <PatientAppointments />
           </ProtectedRoute>
         } />
       </Routes>

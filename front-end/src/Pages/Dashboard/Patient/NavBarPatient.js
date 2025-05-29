@@ -18,7 +18,7 @@ export default function NavbarPatient() {
             pageSubtitle = 'Manage your personal information';
             break;
         case '/patient/appointments':
-            pageTitle = 'Appointments';
+            pageTitle = 'My Appointments';
             pageSubtitle = 'View and manage your appointments';
             break;
         case '/patient/doctors':
