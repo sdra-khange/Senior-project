@@ -768,7 +768,6 @@
 // };
 
 // export default TherapySessionManager;
-
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from '../../../../utils/axiosProfile';
 import Cookie from 'cookie-universal';
@@ -961,22 +960,49 @@ const TherapySessionManager = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            // Create a clean payload object with only the necessary fields
+            // Create payload with all required fields
             const payload = {
                 date: currentSession.date,
                 start_time: currentSession.start_time,
                 end_time: currentSession.end_time,
                 session_type: currentSession.session_type,
-                // Include other required fields if needed
+                status: currentSession.status,
+                doctor: doctorId,
+                // Include patient if session is booked
+                ...(currentSession.status === 'BOOKED' && { patient: currentSession.patient })
             };
+
+            const response = await axios.put(`/app/sessions/${currentSession.id}/`, payload);
             
-            await axios.put(`/app/sessions/${currentSession.id}/`, payload);
-            setMessage('Session updated successfully!');
-            fetchSessions();
-            setShowEditModal(false);
+            if (response.status === 200) {
+                setMessage('Session updated successfully!');
+                fetchSessions();
+                setShowEditModal(false);
+            } else {
+                setMessage('Failed to update session: Unexpected response');
+            }
         } catch (error) {
             console.error('Error updating session:', error);
-            setMessage(error.response?.data?.message || 'Failed to update session');
+            let errorMessage = 'Failed to update session';
+            
+            // Enhanced error handling
+            if (error.response) {
+                if (error.response.data) {
+                    if (error.response.data.message) {
+                        errorMessage = error.response.data.message;
+                    } else if (error.response.data.detail) {
+                        errorMessage = error.response.data.detail;
+                    } else if (typeof error.response.data === 'string') {
+                        errorMessage = error.response.data;
+                    } else if (error.response.data.non_field_errors) {
+                        errorMessage = error.response.data.non_field_errors.join(', ');
+                    }
+                }
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+            
+            setMessage(`Error: ${errorMessage}`);
         } finally {
             setIsLoading(false);
         }
@@ -1396,6 +1422,7 @@ const TherapySessionManager = () => {
                                             date: e.target.value
                                         })}
                                         required
+                                        min={new Date().toISOString().split('T')[0]}
                                     />
                                 </div>
                                 <div className="form-row">
@@ -1438,6 +1465,21 @@ const TherapySessionManager = () => {
                                         <option value="MESSAGE">Messages</option>
                                     </select>
                                 </div>
+                                {currentSession.status === 'BOOKED' && (
+                                    <div className="form-group">
+                                        <label>Status</label>
+                                        <select
+                                            value={currentSession.status}
+                                            onChange={(e) => setCurrentSession({
+                                                ...currentSession,
+                                                status: e.target.value
+                                            })}
+                                        >
+                                            <option value="BOOKED">Booked</option>
+                                            <option value="CANCELLED">Cancelled</option>
+                                        </select>
+                                    </div>
+                                )}
                             </form>
                         </div>
                         <div className="modal-footer">

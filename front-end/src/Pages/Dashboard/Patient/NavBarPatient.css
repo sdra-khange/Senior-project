@@ -9,7 +9,7 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     position: fixed;
     top: 0;
-    left: 0;
+    left: 35px;
     z-index: 1000;
 }
 

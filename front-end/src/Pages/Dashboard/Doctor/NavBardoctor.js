@@ -29,13 +29,9 @@ export default function Navbar() {
             pageTitle = 'Manage Booking Schedule';
             pageSubtitle = 'Manage your booking schedule and availability';
             break;
-        case '/doctor/generate-sessions':
-            pageTitle = 'Generate Sessions';
+        case '/doctor/therapy-sessions':
+            pageTitle = 'Manage Therapy Sessions';
             pageSubtitle = 'Create and manage your sessions';
-            break;
-        case '/doctor/create-session':
-            pageTitle = 'Create Session';
-            pageSubtitle = 'Create a new session';
             break;
         case '/doctor/ManageAboutPatient':
             pageTitle = 'Manage About Patient';

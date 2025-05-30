@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 
+
 class Domain(models.Model):
     STATUS_CHOICES = [
         ('Active', 'Active'),
@@ -24,10 +25,7 @@ class Domain(models.Model):
     class Meta:
         ordering = ['-CreatedDate']  
 
-# class Domain(models.Model):
-#     DomainID = models.AutoField(primary_key=True)  
-#     DomainName = models.CharField(max_length=50)  
-#     DomainDescription = models.TextField(max_length=200) 
+
 
 
 
@@ -36,6 +34,7 @@ class Test(models.Model):
     TestName = models.CharField(max_length=100)
     # Domain = models.ForeignKey(Domain, related_name='tests', on_delete=models.CASCADE) #? think about it!
     
+
 
 
 
@@ -52,3 +51,29 @@ class Answer(models.Model):
     Question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
     AnswerText = models.CharField(max_length=200)
 
+
+
+
+class ContentType(models.Model):
+    TypeID = models.AutoField(primary_key=True)
+    TypeName = models.CharField(max_length=50)  # مثل 'فيديو'، 'مقال'، 'صورة'
+    TypeDescription = models.TextField(max_length=200)
+    
+    def __str__(self):
+        return self.TypeName
+
+
+class Content(models.Model):
+    ContentID = models.AutoField(primary_key=True)
+    Title = models.CharField(max_length=100)
+    Description = models.TextField()
+    ContentType = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    Domain = models.ForeignKey(Domain, on_delete=models.CASCADE, related_name='contents')
+    File = models.FileField(upload_to='content/', blank=True, null=True)  # للملفات المرفوعة
+    URL = models.URLField(blank=True, null=True)  # إذا كان المحتوى من موقع خارجي
+    CreatedBy = models.ForeignKey(User, on_delete=models.CASCADE)  # الطبيب الذي أنشأ المحتوى
+    CreatedDate = models.DateTimeField(auto_now_add=True)
+    Status = models.CharField(max_length=10, choices=[('Active', 'Active'), ('Inactive', 'Inactive')], default='Active')
+    
+    class Meta:
+        ordering = ['-CreatedDate']

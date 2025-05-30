@@ -1,0 +1,122 @@
+/* ContentPage.css */
+.content-page {
+    background-color: #f8f9fe;
+    min-height: 100vh;
+}
+
+.content-container {
+    margin-left: 250px;
+    padding: 30px;
+    margin-top: 60px;
+}
+
+.content-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.content-filters select {
+    padding: 10px 15px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    background-color: white;
+    flex: 1;
+    max-width: 250px;
+}
+
+.content-filters button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.content-filters button:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.content-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.content-type {
+    font-size: 24px;
+}
+
+.content-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    flex: 1;
+}
+
+.content-domain {
+    background-color: #f8f9fe;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #666;
+}
+
+.content-description {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.content-media {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.content-media img, 
+.content-media video,
+.content-media iframe {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+}
+
+.content-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #999;
+}

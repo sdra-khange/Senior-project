@@ -1,5 +1,5 @@
 from django.urls import path
-from .Views.Exam import DomainListCreate , DomainRetrieveUpdateDelete ,TestListCreate,TestRetrieveUpdateDelete , QuestionListCreate , QuestionRetrieveUpdateDelete , AnswerListCreate, AnswerRetrieveUpdateDelete
+from .Views.Exam import DomainListCreate , DomainRetrieveUpdateDelete ,TestListCreate,TestRetrieveUpdateDelete , QuestionListCreate , QuestionRetrieveUpdateDelete , AnswerListCreate, AnswerRetrieveUpdateDelete,PublicContentList,ContentRetrieveUpdateDelete,ContentListCreate
 from .Views.Sessions import (
     SessionListCreate,
     SessionRetrieveUpdateDelete,
@@ -70,6 +70,12 @@ urlpatterns = [
     path('patient/appointments/', PatientBookedSessionsView.as_view(), name='patient-appointments'),
     # path('patient/appointments/<int:session_id>/', PatientBookedSessionsView.as_view(), name='patient-appointments-delete'),
     path('patient/appointments/<int:session_id>/cancel/', PatientBookedSessionsView.as_view(), name='patient-appointment-cancel'),
+    
+    
+        # Content URLs
+    path('content/', ContentListCreate.as_view(), name='content-list-create'),
+    path('content/<int:pk>/', ContentRetrieveUpdateDelete.as_view(), name='content-detail'),
+    path('public/content/', PublicContentList.as_view(), name='public-content-list'),
 ]
 
 

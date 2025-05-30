@@ -13,9 +13,13 @@ export default function NavbarPatient() {
             pageTitle = 'Dashboard';
             pageSubtitle = 'Your health overview';
             break;
-        case '/patient/profile':
+        case '/patient/profilePatient':
             pageTitle = 'Profile';
             pageSubtitle = 'Manage your personal information';
+            break;
+        case '/patient/PatientDoctorsList':
+            pageTitle = 'Find Your Therapist';
+            pageSubtitle = 'View doctors list and find doctor to start your session therapy';
             break;
         case '/patient/appointments':
             pageTitle = 'My Appointments';

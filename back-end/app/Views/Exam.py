@@ -5,8 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from ..Models.exam import Domain , Test ,Question , Answer
-from ..Serializers.Exam import DomainSerializer , TestSerializer ,QuestionSerializer ,AnswerSerializer
+from ..Serializers.Exam import DomainSerializer , TestSerializer ,QuestionSerializer ,AnswerSerializer ,ContentSerializer,ContentTypeSerializer
 from rest_framework.permissions import IsAuthenticated
+from accounts.permissions import IsDoctor
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.shortcuts import get_object_or_404
@@ -250,4 +251,68 @@ class AnswerRetrieveUpdateDelete(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# Create your views here.
+
+
+class ContentListCreate(APIView):
+    permission_classes = [IsAuthenticated, IsDoctor]
+    
+    def get(self, request):
+        # يمكن للدكتور رؤية المحتوى الذي أنشأه فقط
+        contents = Content.objects.filter(CreatedBy=request.user)
+        serializer = ContentSerializer(contents, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        data = request.data.copy()
+        data['CreatedBy'] = request.user.id
+        
+        serializer = ContentSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ContentRetrieveUpdateDelete(APIView):
+    permission_classes = [IsAuthenticated, IsDoctor]
+    
+    def get_object(self, pk):
+        return get_object_or_404(Content, pk=pk, CreatedBy=self.request.user)
+    
+    def get(self, request, pk):
+        content = self.get_object(pk)
+        serializer = ContentSerializer(content)
+        return Response(serializer.data)
+    
+    def put(self, request, pk):
+        content = self.get_object(pk)
+        data = request.data.copy()
+        data['CreatedBy'] = request.user.id
+        
+        serializer = ContentSerializer(content, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk):
+        content = self.get_object(pk)
+        content.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class PublicContentList(APIView):
+    def get(self, request):
+        # يمكن للجميع رؤية المحتوى النشط فقط
+        contents = Content.objects.filter(Status='Active')
+        
+        # تصفية حسب النوع إذا كان موجودًا
+        content_type = request.query_params.get('type')
+        if content_type:
+            contents = contents.filter(ContentType__TypeName=content_type)
+            
+        # تصفية حسب الدومين إذا كان موجودًا
+        domain_id = request.query_params.get('domain')
+        if domain_id:
+            contents = contents.filter(Domain__DomainID=domain_id)
+            
+        serializer = ContentSerializer(contents, many=True)
+        return Response(serializer.data)

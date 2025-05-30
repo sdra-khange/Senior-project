@@ -23,6 +23,7 @@ function Navbar() {
                 <Link to="/blog" className={location.pathname === "/blog" ? "active" : ""}>
                     Blog
                 </Link>
+                
             </div>
             <Link to="/patient/login" className="login-button">
                 Login

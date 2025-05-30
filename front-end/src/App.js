@@ -25,7 +25,11 @@ import TherapySessionManager from './Pages/Dashboard/Doctor/TherapySessionManage
 import ProfilePatient from './Pages/Dashboard/Patient/Profile/ProfilePatient';
 import PatientDoctorsList from './Pages/Dashboard/Patient/Booking details/PatientDoctorsList';
 import PatientDoctorDetails from './Pages/Dashboard/Patient/Booking details/PatientDoctorDetails';
-import PatientAppointments from './Pages/Dashboard/Patient/PatientAppointments/PatientAppointments'
+import PatientAppointments from './Pages/Dashboard/Patient/PatientAppointments/PatientAppointments';
+
+import ManageContent from './Pages/Dashboard/Doctor/ManageContent/ManageContent';
+import ContentPage from './Pages/Dashboard/Doctor/ManageContent/ContentPage';
+
 
 function App() {
   return (
@@ -35,6 +39,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/specialists" element={<Specialists />} />
         <Route path="/about" element={<AboutPage />} />
+
         
         {/* Authentication Routes */}
         <Route path="/login/admin" element={<AdminLogin />} />
@@ -101,7 +106,16 @@ function App() {
             <TherapySessionManager />
           </ProtectedRoute>
         } />
-        
+        <Route path="/doctor/ManageContent" element={
+          <ProtectedRoute allowedUserType="doctor">
+            <ManageContent />
+          </ProtectedRoute>
+        } />
+        <Route path="/doctor/ManageContent" element={
+          <ProtectedRoute allowedUserType="doctor">
+            <ContentPage />
+          </ProtectedRoute>
+        } />        
         {/* Patient Protected Routes */}
         <Route path="/patient/dashboard" element={
           <ProtectedRoute allowedUserType="patient">
