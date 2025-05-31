@@ -134,3 +134,4 @@ class ChatRoomMembers(APIView):
         member.is_active = False
         member.save()
         return Response(status=status.HTTP_204_NO_CONTENT) 
+

@@ -115,7 +115,7 @@ function App() {
           <ProtectedRoute allowedUserType="doctor">
             <ContentPage />
           </ProtectedRoute>
-        } />        
+        } />      
         {/* Patient Protected Routes */}
         <Route path="/patient/dashboard" element={
           <ProtectedRoute allowedUserType="patient">

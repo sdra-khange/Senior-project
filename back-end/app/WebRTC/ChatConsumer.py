@@ -74,3 +74,4 @@ class ChatConsumer(AsyncWebsocketConsumer):
             sender=self.user,
             content=message_content
         ) 
+

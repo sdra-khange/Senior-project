@@ -1,3 +1,5 @@
+# type: ignore
+
 from ..Models.Video_call import VideoRoom
 from django.utils import timezone
 from django.core.exceptions import ValidationError
@@ -142,3 +144,5 @@ class VideoCallService:
             'status__in': ['waiting', 'active']
         }
         return VideoRoom.objects.filter(**filter_kwargs)
+
+

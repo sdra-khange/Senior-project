@@ -22,6 +22,7 @@ from .Views.Chat import (
 )
 
 
+
 urlpatterns = [
     # Domain 
     path('domains/', DomainListCreate.as_view(), name='domain-list-create'),
@@ -58,7 +59,8 @@ urlpatterns = [
     path('chat/rooms/<int:room_id>/messages/', ChatMessages.as_view(), name='chat-messages'),
     path('chat/rooms/<int:room_id>/members/', ChatRoomMembers.as_view(), name='chat-room-members'),
     path('chat/rooms/<int:room_id>/members/<int:member_id>/', ChatRoomMembers.as_view(), name='chat-room-member-delete'),
-    
+
+
     
     # path booking patient doctor
     path('doctors/', DoctorListView.as_view(), name='doctor-list'),
@@ -77,6 +79,10 @@ urlpatterns = [
     path('content/<int:pk>/', ContentRetrieveUpdateDelete.as_view(), name='content-detail'),
     path('public/content/', PublicContentList.as_view(), name='public-content-list'),
 ]
+
+
+
+
 
 
 
