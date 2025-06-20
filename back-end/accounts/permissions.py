@@ -26,13 +26,13 @@ class IsOwnerOrAdmin(permissions.BasePermission):
         return obj.id == request.user.id 
 
 
+# لازم احذفهم 
+
+# class IsPatient(BasePermission):
+#     def has_permission(self, request, view):
+#         return request.user.is_authenticated and request.user.user_type == 'patient'
 
 
-class IsPatient(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.user_type == 'patient'
-
-
-class IsDoctor(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.user_type == 'doctor'
+# class IsDoctor(BasePermission):
+#     def has_permission(self, request, view):
+#         return request.user.is_authenticated and request.user.user_type == 'doctor'

@@ -18,34 +18,6 @@ from ..Serializers.Sessions import (
 )
 from accounts.permissions import IsPatient
 
-# class SessionListCreate(APIView):
-#     serializer_class = SessionSerializer
-
-#     def get(self, request):
-#         # Get query parameters
-#         doctor_id = request.query_params.get('doctor_id')
-#         date = request.query_params.get('date')
-#         session_type = request.query_params.get('session_type')
-
-#         # Use service to get filtered sessions
-#         sessions = SessionService.get_available_sessions(
-#             doctor_id=doctor_id,
-#             date=date,
-#             session_type=session_type
-#         )
-#         serializer = self.serializer_class(sessions, many=True)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
-
-#     def post(self, request):
-#         serializer = self.serializer_class(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             response = {
-#                 "message": "Session created",
-#                 "data": serializer.data
-#             }
-#             return Response(data=response, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SessionListCreate(APIView):

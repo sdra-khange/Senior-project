@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from ..Models.sessions import Session
 from django.shortcuts import get_object_or_404
 
+
 class SessionService:
     @staticmethod
     def generate_sessions(doctor, start_date, end_date, daily_start_time, daily_end_time, session_types):

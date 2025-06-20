@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { 
-  FaUserAlt, 
-  FaChartBar, 
-  FaUsersCog, 
-  FaCalendarCheck, 
-  FaAddressBook, 
-  FaEdit, 
+import {
+  FaUserAlt,
+  FaCalendarCheck,
+  FaEdit,
+  FaCommentAlt,
   FaAngleLeft,
-  FaSignOutAlt
+  FaSignOutAlt,
+  FaPlus,
+  FaSignInAlt,
+  FaList
 } from 'react-icons/fa';
 import './SidebarDoctor.css';
 import axiosProfile from '../../../utils/axiosProfile';
@@ -57,21 +58,9 @@ export default function SidebarDoctor() {
             
             <ul className="doctor-sidebar-list">
                 <li>
-                    <NavLink to="/doctor/dashboardDoctor">
-                        <FaChartBar className="doctor-sidebar-icon" />
-                        <span>Dashboard</span>
-                    </NavLink>
-                </li>
-                <li>
                     <NavLink to="/doctor/profileDoctor">
                         <FaUserAlt className="doctor-sidebar-icon" />
                         <span>Profile</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/doctor/ManageSupportGroup">
-                        <FaUsersCog className="doctor-sidebar-icon" />
-                        <span>Manage Support Group</span>
                     </NavLink>
                 </li>
                 <li>
@@ -81,15 +70,36 @@ export default function SidebarDoctor() {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/doctor/ManageAboutPatient">
-                        <FaAddressBook className="doctor-sidebar-icon" />
-                        <span>Manage About Patient</span>
-                    </NavLink>
-                </li>
-                <li>
                     <NavLink to="/doctor/ManageContent">
                         <FaEdit className="doctor-sidebar-icon" />
                         <span>Manage Content</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/doctor/chat">
+                        <FaCommentAlt className="doctor-sidebar-icon" />
+                        <span>Chat</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <span className="doctor-sidebar-section-title">LiveKit Rooms</span>
+                </li>
+                <li>
+                    <NavLink to="/doctor/room/create">
+                        <FaPlus className="doctor-sidebar-icon" />
+                        <span>Create Room</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/doctor/room/join">
+                        <FaSignInAlt className="doctor-sidebar-icon" />
+                        <span>Join Room</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/doctor/room/list">
+                        <FaList className="doctor-sidebar-icon" />
+                        <span>Manage Rooms</span>
                     </NavLink>
                 </li>
                 <li>

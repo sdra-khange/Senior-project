@@ -11,7 +11,7 @@ export default function Navbar() {
     switch (location.pathname) {
         case '/admin/dashboard':
             pageTitle = 'Dashboard';
-            pageSubtitle = 'Welcome to your dashboard';
+            pageSubtitle = '';
             break;
         case '/admin/manage-domains':
             pageTitle = 'Manage Domains';
@@ -23,7 +23,7 @@ export default function Navbar() {
             break;
         case '/admin/manage-doctors':
             pageTitle = 'Manage Doctors';
-            pageSubtitle = 'Manage your doctors and their information';
+            pageSubtitle = '';
             break;
         case '/admin/manage-tests':
             pageTitle = 'Manage Tests';

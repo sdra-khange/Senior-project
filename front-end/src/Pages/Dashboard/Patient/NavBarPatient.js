@@ -41,6 +41,18 @@ export default function NavbarPatient() {
             pageTitle = 'Medical Records';
             pageSubtitle = 'Your health history';
             break;
+        case '/patient/room/create':
+            pageTitle = 'Create Room';
+            pageSubtitle = 'Create a new video consultation room';
+            break;
+        case '/patient/room/join':
+            pageTitle = 'Join Room';
+            pageSubtitle = 'Join an existing video consultation room';
+            break;
+        case '/patient/room/list':
+            pageTitle = 'Room List';
+            pageSubtitle = 'View all available video consultation rooms';
+            break;
         default:
             pageTitle = 'Page';
             pageSubtitle = 'Page description';

@@ -1,5 +1,6 @@
 from django.urls import path
 from .Views.Exam import DomainListCreate , DomainRetrieveUpdateDelete ,TestListCreate,TestRetrieveUpdateDelete , QuestionListCreate , QuestionRetrieveUpdateDelete , AnswerListCreate, AnswerRetrieveUpdateDelete,PublicContentList,ContentRetrieveUpdateDelete,ContentListCreate
+
 from .Views.Sessions import (
     SessionListCreate,
     SessionRetrieveUpdateDelete,
@@ -9,19 +10,22 @@ from .Views.Sessions import (
     DoctorSessionsView, BookSessionView,
     BookingConfirmationView,PatientBookedSessionsView
 )
-from .Views.VideoCall import (
-    VideoRoomListCreate,
-    VideoRoomDetail,
-    VideoRoomJoin,
-    VideoRoomEnd,
-    VideoRoomSignal
-)
-from .Views.Chat import (
-    ChatRoomListCreate, ChatRoomDetail,
-    ChatMessages, ChatRoomMembers
+
+from .Views.livekit_views import (
+    CreateRoomView,
+    JoinRoomView,
+    ListRoomsView,
+    DeleteRoomView,
+    GetTokenView
 )
 
-
+from .Views.chat import (
+    ChatRoomListCreateView,
+    ChatRoomDetailView,
+    ChatMessageListCreateView,
+    ChatParticipantManagementView,
+    MarkMessagesReadView,PatientListView
+)
 
 urlpatterns = [
     # Domain 
@@ -46,20 +50,6 @@ urlpatterns = [
     path('sessions/generate/', SessionGenerate.as_view(), name='session-generate'),
     path('sessions/<int:SessionID>/book/', SessionBooking.as_view(), name='session-book'),
 
-    # Video Rooms
-    path('video-rooms/', VideoRoomListCreate.as_view(), name='video-room-list-create'),
-    path('video-rooms/<str:room_id>/', VideoRoomDetail.as_view(), name='video-room-detail'),
-    path('video-rooms/<str:room_id>/join/', VideoRoomJoin.as_view(), name='video-room-join'),
-    path('video-rooms/<str:room_id>/end/', VideoRoomEnd.as_view(), name='video-room-end'),
-    path('video-rooms/<str:room_id>/signal/', VideoRoomSignal.as_view(), name='video-room-signal'),
-
-    # Chat URLs
-    path('chat/rooms/', ChatRoomListCreate.as_view(), name='chat-rooms'),
-    path('chat/rooms/<int:room_id>/', ChatRoomDetail.as_view(), name='chat-room-detail'),
-    path('chat/rooms/<int:room_id>/messages/', ChatMessages.as_view(), name='chat-messages'),
-    path('chat/rooms/<int:room_id>/members/', ChatRoomMembers.as_view(), name='chat-room-members'),
-    path('chat/rooms/<int:room_id>/members/<int:member_id>/', ChatRoomMembers.as_view(), name='chat-room-member-delete'),
-
 
     
     # path booking patient doctor
@@ -78,6 +68,23 @@ urlpatterns = [
     path('content/', ContentListCreate.as_view(), name='content-list-create'),
     path('content/<int:pk>/', ContentRetrieveUpdateDelete.as_view(), name='content-detail'),
     path('public/content/', PublicContentList.as_view(), name='public-content-list'),
+    
+    # LiveKit endpoints
+    path('livekit/token/', GetTokenView.as_view(), name='livekit-token'),
+    path('api/livekit/rooms/', CreateRoomView.as_view(), name='create-room'),
+    path('api/livekit/rooms/join/', JoinRoomView.as_view(), name='join-room'),
+    path('api/livekit/rooms/list/', ListRoomsView.as_view(), name='list-rooms'),
+    path('api/livekit/rooms/<str:room_name>/', DeleteRoomView.as_view(), name='delete-room'),
+
+    # Chat endpoints
+    path('chat/rooms/', ChatRoomListCreateView.as_view(), name='chat-room-list-create'),
+    path('chat/rooms/<int:room_id>/', ChatRoomDetailView.as_view(), name='chat-room-detail'),
+    path('chat/rooms/<int:room_id>/messages/', ChatMessageListCreateView.as_view(), name='chat-messages'),
+    path('chat/rooms/<int:room_id>/participants/', ChatParticipantManagementView.as_view(), name='chat-participants'),
+    path('chat/rooms/<int:room_id>/mark-read/', MarkMessagesReadView.as_view(), name='mark-messages-read'),
+    
+    path('patient/', PatientListView.as_view(), name='patient-list'),
+
 ]
 
 

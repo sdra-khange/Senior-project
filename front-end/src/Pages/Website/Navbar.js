@@ -17,9 +17,6 @@ function Navbar() {
                 <Link to="/specialists" className={location.pathname === "/specialists" ? "active" : ""}>
                     Specialists
                 </Link>
-                <Link to="/assessments" className={location.pathname === "/assessments" ? "active" : ""}>
-                    Assessments
-                </Link>
                 <Link to="/blog" className={location.pathname === "/blog" ? "active" : ""}>
                     Blog
                 </Link>

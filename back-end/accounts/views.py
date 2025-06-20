@@ -1,7 +1,7 @@
 # type: ignore
 
 from django.shortcuts import render
-from .serializers import SignUpSerializer, LoginSerializer,UpdateUserSerializer
+from .serializers import SignUpSerializer, LoginSerializer,UpdateUserSerializer, AdminStatsSerializer
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.request import Request
@@ -18,7 +18,7 @@ from django.db.models import Count
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAdminUser
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from .serializers import DoctorProfileSerializerrr
 
 
 
@@ -167,7 +167,7 @@ class DoctorProfileView(APIView):
             serializer = DoctorProfileSerializer(doctor_profile)
             return Response(serializer.data)
         except DoctorProfile.DoesNotExist:
-            # إذا لم يكن الملف الشخصي موجوداً، قم بإنشائه
+            # If the profile does not exist create it
             serializer = DoctorProfileSerializer(data={})
             if serializer.is_valid():
                 doctor_profile = serializer.save(user=user)
@@ -184,7 +184,7 @@ class DoctorProfileView(APIView):
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except DoctorProfile.DoesNotExist:
-            # إذا لم يكن الملف الشخصي موجوداً، قم بإنشائه
+            # If the profile does not exist create it
             serializer = DoctorProfileSerializer(data=request.data)
             if serializer.is_valid():
                 doctor_profile = serializer.save(user=user)
@@ -357,3 +357,26 @@ class LogoutView(APIView):
             return Response({"message": "Logout successful"}, status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+# manage doctor
+class DoctorView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request):
+        doctors = DoctorProfile.objects.all()
+        serializer = DoctorProfileSerializerrr(doctors, many=True, context={'request': request})
+        return Response(serializer.data)
+
+
+class ChangeDoctorStatusView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def put(self, request, doctor_id):
+        doctor = User.objects.get(id=doctor_id)
+        doctor.is_active = request.data.get('is_active')
+        doctor.save()
+        return Response(status=status.HTTP_200_OK, data={'message': 'Doctor status changed successfully'})

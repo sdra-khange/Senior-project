@@ -174,3 +174,23 @@
     100% { transform: rotate(360deg); }
 }
 
+.join-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.join-btn:hover {
+    background-color: #45a049;
+}
+
+.join-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+

@@ -12,7 +12,8 @@ from .views import (
     DoctorLoginView, AdminLoginView, PatientLoginView,ChangePasswordView,updateUserInfo,
     userInfoView,DoctorProfileView,DoctorProfileCreateView,PatientProfileView,
     AdminStatsView, AdminUserListView, AdminDeactivateDoctorView,
-    PatientProfileView,LogoutView
+    PatientProfileView,LogoutView,
+    DoctorView, ChangeDoctorStatusView
 )
 
 urlpatterns = [
@@ -56,6 +57,10 @@ urlpatterns = [
     
     # Logout 
     path('logout/', LogoutView.as_view(), name='logout'),
+    
+    # manage Doctor profile endpoints
+    path('doctor/profile/', DoctorView.as_view(), name='doctor-profile'),
+    path('doctor/status/<int:doctor_id>/', ChangeDoctorStatusView.as_view(), name='change-doctor-status'),
 
 ]
 

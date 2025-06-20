@@ -56,7 +56,7 @@ class Answer(models.Model):
 
 class ContentType(models.Model):
     TypeID = models.AutoField(primary_key=True)
-    TypeName = models.CharField(max_length=50)  # مثل 'فيديو'، 'مقال'، 'صورة'
+    TypeName = models.CharField(max_length=50)  
     TypeDescription = models.TextField(max_length=200)
     
     def __str__(self):
@@ -69,9 +69,9 @@ class Content(models.Model):
     Description = models.TextField()
     ContentType = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     Domain = models.ForeignKey(Domain, on_delete=models.CASCADE, related_name='contents')
-    File = models.FileField(upload_to='content/', blank=True, null=True)  # للملفات المرفوعة
-    URL = models.URLField(blank=True, null=True)  # إذا كان المحتوى من موقع خارجي
-    CreatedBy = models.ForeignKey(User, on_delete=models.CASCADE)  # الطبيب الذي أنشأ المحتوى
+    File = models.FileField(upload_to='content/', blank=True, null=True)  
+    URL = models.URLField(blank=True, null=True)  
+    CreatedBy = models.ForeignKey(User, on_delete=models.CASCADE) 
     CreatedDate = models.DateTimeField(auto_now_add=True)
     Status = models.CharField(max_length=10, choices=[('Active', 'Active'), ('Inactive', 'Inactive')], default='Active')
     

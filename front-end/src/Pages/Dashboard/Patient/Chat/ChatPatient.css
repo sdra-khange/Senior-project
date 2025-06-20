@@ -1,0 +1,133 @@
+.chat-patient-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.chat-patient-header {
+  background: linear-gradient(135deg, #27ae60, #229954);
+  color: white;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.chat-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.chat-header-icon {
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.chat-header-text h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.chat-header-text p {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.chat-patient-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.chat-sidebar {
+  width: 350px;
+  border-right: 1px solid #e1e5e9;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.chat-main {
+  flex: 1;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.chat-sidebar.hidden,
+.chat-main.hidden {
+  display: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .chat-patient-header {
+    padding: 1rem;
+  }
+  
+  .chat-header-icon {
+    font-size: 1.5rem;
+  }
+  
+  .chat-header-text h2 {
+    font-size: 1.25rem;
+  }
+  
+  .chat-header-text p {
+    font-size: 0.85rem;
+  }
+  
+  .chat-patient-content {
+    position: relative;
+  }
+  
+  .chat-sidebar {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 10;
+  }
+  
+  .chat-main {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+  
+  .chat-sidebar.hidden {
+    transform: translateX(-100%);
+  }
+  
+  .chat-main.hidden {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-patient-header {
+    padding: 0.75rem;
+  }
+  
+  .chat-header-content {
+    gap: 0.75rem;
+  }
+  
+  .chat-header-icon {
+    font-size: 1.25rem;
+  }
+  
+  .chat-header-text h2 {
+    font-size: 1.1rem;
+  }
+  
+  .chat-header-text p {
+    font-size: 0.8rem;
+  }
+}

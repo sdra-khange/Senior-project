@@ -1,0 +1,224 @@
+/* Emoji Toggle Button */
+.emoji-toggle-button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.emoji-toggle-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #4CAF50;
+  transform: scale(1.1);
+}
+
+/* Emoji Picker */
+.emoji-picker {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 320px;
+  height: 280px;
+  background: rgba(42, 42, 42, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  z-index: 1001;
+  animation: slideUpEmoji 0.2s ease;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes slideUpEmoji {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Emoji Categories */
+.emoji-categories {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  gap: 0.25rem;
+  overflow-x: auto;
+}
+
+.emoji-categories::-webkit-scrollbar {
+  height: 3px;
+}
+
+.emoji-categories::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.emoji-categories::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.emoji-category-button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+.emoji-category-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.emoji-category-button.active {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Emoji Grid */
+.emoji-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.25rem;
+  padding: 0.75rem;
+  overflow-y: auto;
+  align-content: start;
+}
+
+.emoji-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.emoji-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.emoji-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.emoji-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.emoji-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.emoji-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+.emoji-button:active {
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .emoji-picker {
+    width: 280px;
+    height: 240px;
+  }
+
+  .emoji-grid {
+    grid-template-columns: repeat(6, 1fr);
+    padding: 0.5rem;
+  }
+
+  .emoji-button {
+    font-size: 1.1rem;
+    padding: 0.4rem;
+  }
+
+  .emoji-category-button {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* Animation for emoji selection */
+@keyframes emojiPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.emoji-button:active {
+  animation: emojiPop 0.2s ease;
+}
+
+/* Custom scrollbar for better UX */
+.emoji-picker * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+}
+
+/* Focus states for accessibility */
+.emoji-button:focus,
+.emoji-category-button:focus,
+.emoji-toggle-button:focus {
+  outline: 2px solid #4CAF50;
+  outline-offset: 2px;
+}
+
+/* Hover effects for better feedback */
+.emoji-category-button:not(.active):hover {
+  transform: translateY(-1px);
+}
+
+.emoji-button:hover::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #4CAF50, #45a049);
+  border-radius: 10px;
+  z-index: -1;
+  opacity: 0.3;
+}

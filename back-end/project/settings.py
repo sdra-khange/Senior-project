@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'channels',
-
+    'daphne',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     # 'corsheaders',
 ]
 
-ASGI_APPLICATION = "app.asgi.application"
+ASGI_APPLICATION = "project.asgi.application"
 
 CHANNEL_LAYERS = {
     "default": {
@@ -189,3 +189,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

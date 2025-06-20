@@ -1,15 +1,21 @@
 from django.contrib import admin
-from .Models.exam import Domain,Test,Answer,Question,Content,ContentType
+from .Models.exam import Domain, Test, Answer, Question, Content, ContentType
 from .Models.sessions import Session
-from .Models.Chat import ChatRoom,ChatRoomMember
+from .Models.livekit import LiveKitRoom
+from .Models.chat import ChatRoom, ChatParticipant, ChatMessage, MessageReadStatus
+
 # Register your models here.
-admin.site.register(Domain);
+admin.site.register(Domain)
 admin.site.register(Test)
 admin.site.register(Question)
 admin.site.register(Answer)
 admin.site.register(Session)
 admin.site.register(Content)
 admin.site.register(ContentType)
-admin.site.register(ChatRoom)
-admin.site.register(ChatRoomMember)
+admin.site.register(LiveKitRoom)
 
+# Chat models
+admin.site.register(ChatRoom)
+admin.site.register(ChatParticipant)
+admin.site.register(ChatMessage)
+admin.site.register(MessageReadStatus)

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axiosProfile from "../../../../utils/axiosProfile";
 import './ProfileDoctor.css';
 import Navbar from '../NavBardoctor';
@@ -9,8 +10,9 @@ import { FaUser, FaEdit, FaKey, FaCamera } from 'react-icons/fa';
 const cookie = Cookie();
 
 const ProfileDoctor = () => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
-    const [profilePhoto, setProfilePhoto] = useState(null); // يمكن أن تكون null أو string (URL) أو File object
+    const [profilePhoto, setProfilePhoto] = useState(null);
     const [specialization, setSpecialization] = useState('');
     const [age, setAge] = useState('');
     const [sessionPrice, setSessionPrice] = useState('');
@@ -28,28 +30,72 @@ const ProfileDoctor = () => {
     useEffect(() => {
         const token = cookie.get("auth-token");
         if (!token) {
-            window.location.href = '/login';
+            navigate('/doctor/login');
         }
-    }, []);
+    }, [navigate]);
 
     // Fetch basic user information
     const fetchDoctorInfo = useCallback(async () => {
         try {
+            // Try to get user data from cookie first
+            const userData = cookie.get("user-data");
+            if (userData) {
+                try {
+                    let user = null;
+                    if (typeof userData === 'string') {
+                        user = JSON.parse(userData);
+                    } else if (typeof userData === 'object') {
+                        user = userData;
+                    }
+
+                    if (user) {
+                        setUsername(user.username || user.email || '');
+
+                        if (user.profile_photo) {
+                            setProfilePhoto(`http://127.0.0.1:8000${user.profile_photo}`);
+                        }
+                        return;
+                    }
+                } catch (parseError) {
+                    console.warn("Failed to parse user data from cookie:", parseError);
+                }
+            }
+
+            // Fallback to API call if no cookie data
             const response = await axiosProfile.get('/auth/user/');
             const data = response.data.data || response.data;
             setUsername(data.username);
 
             if (data.profile_photo) {
-                // Set the profile photo URL if it exists
                 setProfilePhoto(`http://127.0.0.1:8000${data.profile_photo}`);
             }
         } catch (error) {
             console.error("Error fetching user info:", error);
+
+            // If API fails, try to get basic info from cookie
+            const userData = cookie.get("user-data");
+            if (userData) {
+                try {
+                    let user = null;
+                    if (typeof userData === 'string') {
+                        user = JSON.parse(userData);
+                    } else if (typeof userData === 'object') {
+                        user = userData;
+                    }
+
+                    if (user) {
+                        setUsername(user.username || user.email || '');
+                    }
+                } catch (parseError) {
+                    console.warn("Failed to parse user data from cookie in error handler:", parseError);
+                }
+            }
+
             if (error.response?.status === 401) {
-                window.location.href = '/login';
+                navigate('/doctor/login');
             }
         }
-    }, []);
+    }, [navigate]);
 
     // Fetch doctor profile information
     const fetchDoctorProfile = useCallback(async () => {

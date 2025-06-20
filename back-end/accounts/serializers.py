@@ -140,3 +140,17 @@ class AdminUserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'username', 'user_type', 'is_active', 'date_joined']
+
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'profile_photo', 'is_active']
+
+
+class DoctorProfileSerializerrr(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = DoctorProfile
+        fields = ['id', 'specialization', 'experience_years', 'age', 'session_duration', 'profile_picture', 'session_price', 'user']

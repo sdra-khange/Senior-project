@@ -1,0 +1,896 @@
+.livekit-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.livekit-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.video-conference {
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - 90px);
+  position: relative;
+  z-index: 1;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+  margin: 10px 10px 0 10px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-bar {
+  height: 90px;
+  background: rgba(42, 42, 42, 0.95);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.loading-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  color: white;
+  position: relative;
+}
+
+.loading-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.loading-box {
+  background: rgba(42, 42, 42, 0.9);
+  backdrop-filter: blur(20px);
+  padding: 3rem;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  min-width: 300px;
+}
+
+.loading-box p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #4CAF50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  color: white;
+  padding: 2rem;
+  position: relative;
+}
+
+.error-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.error-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+.error-message {
+  color: #ff6b6b;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.primary-button:active {
+  transform: translateY(0);
+}
+
+.secondary-button {
+  background: rgba(102, 102, 102, 0.8);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.secondary-button:hover {
+  background: rgba(102, 102, 102, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.connection-status {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.connection-status.connected {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.9) 0%, rgba(69, 160, 73, 0.9) 100%);
+  border-color: rgba(76, 175, 80, 0.3);
+  color: white;
+  animation: slideInRight 0.5s ease;
+}
+
+.connection-status.reconnecting {
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.9) 0%, rgba(255, 140, 0, 0.9) 100%);
+  border-color: rgba(255, 152, 0, 0.3);
+  color: white;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.video-grid {
+  flex: 1;
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  overflow: auto;
+}
+
+.device-info,
+.device-status {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.device-info h4,
+.device-status h4 {
+  color: #4CAF50;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.device-info p,
+.device-status p {
+  margin: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.troubleshooting-steps {
+  margin-top: 2rem;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.troubleshooting-steps h4 {
+  color: #ff9800;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.troubleshooting-steps ol {
+  padding-left: 1.5rem;
+}
+
+.troubleshooting-steps li {
+  margin: 0.75rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+.troubleshooting-steps ul {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+}
+
+.troubleshooting-steps ul li {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.room-view {
+  flex: 1;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px);
+}
+
+.remote-participants-grid {
+  display: grid;
+  flex-grow: 1;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.participant-tile {
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.local-participant-pip-container {
+  position: absolute;
+  bottom: 90px;
+  right: 10px;
+  width: 200px;
+  height: 120px;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 2px solid #007bff;
+}
+
+.local-participant-pip {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.participant-tile video,
+.local-participant-pip video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Enhanced Video Conference Styling */
+.livekit-container .lk-video-conference {
+  background: transparent !important;
+}
+
+.livekit-container .lk-grid-layout {
+  gap: 1rem !important;
+  padding: 1rem !important;
+}
+
+.livekit-container .lk-participant-tile {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.3s ease !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.livekit-container .lk-participant-tile:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(76, 175, 80, 0.3) !important;
+}
+
+.livekit-container .lk-participant-name {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 1rem !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.livekit-container .lk-control-bar {
+  background: rgba(42, 42, 42, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 1rem 2rem !important;
+  gap: 1.5rem !important;
+}
+
+.livekit-container .lk-button {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 1rem !important;
+  transition: all 0.3s ease !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.livekit-container .lk-button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.livekit-container .lk-button.lk-button-danger {
+  background: linear-gradient(135deg, #ff4444 0%, #cc3333 100%) !important;
+  border-color: rgba(255, 68, 68, 0.3) !important;
+}
+
+.livekit-container .lk-button.lk-button-danger:hover {
+  background: linear-gradient(135deg, #ff5555 0%, #dd4444 100%) !important;
+  box-shadow: 0 8px 20px rgba(255, 68, 68, 0.3) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .error-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .control-bar {
+    height: 80px;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .video-conference {
+    margin: 5px;
+    border-radius: 15px 15px 0 0;
+  }
+
+  .connection-status {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .loading-box {
+    margin: 1rem;
+    padding: 2rem;
+    min-width: auto;
+  }
+
+  .livekit-container .lk-grid-layout {
+    gap: 0.5rem !important;
+    padding: 0.5rem !important;
+  }
+
+  .livekit-container .lk-participant-tile {
+    border-radius: 12px !important;
+  }
+
+  .livekit-container .lk-control-bar {
+    padding: 0.75rem 1rem !important;
+    gap: 1rem !important;
+  }
+
+  .livekit-container .lk-button {
+    padding: 0.75rem !important;
+    border-radius: 10px !important;
+  }
+}
+
+/* Additional Animations and Effects */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.6);
+  }
+}
+
+.loading-box {
+  animation: fadeIn 0.5s ease;
+}
+
+.error-container > * {
+  animation: slideUp 0.5s ease;
+}
+
+.connection-status.connected {
+  animation: slideInRight 0.5s ease, glow 2s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
+.livekit-container ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.livekit-container ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.livekit-container ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.livekit-container ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Enhanced Focus States */
+.primary-button:focus,
+.secondary-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+.livekit-container .lk-button:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3) !important;
+}
+
+/* Loading Animation Enhancement */
+.loading-spinner {
+  position: relative;
+}
+
+.loading-spinner::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid transparent;
+  border-top: 2px solid rgba(76, 175, 80, 0.3);
+  border-radius: 50%;
+  animation: spin 2s linear infinite reverse;
+}
+
+/* Participant Tile Enhancements */
+.livekit-container .lk-participant-tile {
+  position: relative !important;
+}
+
+.livekit-container .lk-participant-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.livekit-container .lk-participant-tile:hover::before {
+  opacity: 1;
+}
+
+/* Enhanced Typography */
+.loading-box h4,
+.device-info h4,
+.device-status h4,
+.troubleshooting-steps h4 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.loading-box p,
+.device-info p,
+.device-status p {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Enhanced Button Styles */
+.primary-button,
+.secondary-button {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  white-space: nowrap;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-button::before,
+.secondary-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.primary-button:hover::before,
+.secondary-button:hover::before {
+  left: 100%;
+}
+
+/* Connection Status Enhancements */
+.connection-status {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+/* Dark Mode Support - Enhanced */
+@media (prefers-color-scheme: dark) {
+  .livekit-container {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+  }
+
+  .video-conference {
+    background: rgba(255, 255, 255, 0.01) !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .livekit-container {
+    background: #000000;
+  }
+
+  .loading-box,
+  .device-info,
+  .device-status,
+  .troubleshooting-steps {
+    background: #1a1a1a;
+    border: 2px solid #ffffff;
+  }
+
+  .primary-button {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #ffffff;
+  }
+
+  .secondary-button {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Chat Integration Styles */
+.livekit-container {
+  position: relative;
+}
+
+.livekit-container .chat-toggle-button,
+.livekit-container .chat-panel {
+  z-index: 1001;
+}
+
+/* Ensure chat doesn't interfere with video controls */
+.livekit-container .lk-control-bar {
+  z-index: 999 !important;
+}
+
+/* Chat notification badge */
+.chat-notification {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+  animation: slideInRight 0.5s ease, fadeOut 3s ease 2s forwards;
+  z-index: 1002;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Enhanced video conference area for chat integration */
+.video-conference {
+  transition: margin-right 0.3s ease;
+}
+
+.video-conference.chat-open {
+  margin-right: 400px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .loading-spinner {
+    animation: none;
+    border: 4px solid #4CAF50;
+  }
+
+  .chat-panel,
+  .chat-toggle-button {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Permission Checker Overlay */
+.permission-checker-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeInOverlay 0.3s ease;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.close-checker-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-checker-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Enhanced Button Styles */
+.tertiary-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 0.5rem;
+}
+
+.tertiary-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.secondary-button {
+  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 0.5rem;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.secondary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+}
+
+/* Focus management for chat */
+.livekit-container:focus-within .chat-toggle-button {
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+/* Ensure proper stacking context */
+.livekit-container .connection-status {
+  z-index: 1000;
+}
+
+.livekit-container .error-boundary {
+  z-index: 1003;
+}
+
+.permission-checker-overlay {
+  z-index: 2000;
+}

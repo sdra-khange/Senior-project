@@ -9,7 +9,8 @@ import {
   FaSignOutAlt,
   FaAngleLeft,
   FaHome,
-  FaSearch
+  FaSearch,
+  FaEdit
 } from 'react-icons/fa';
 import './SidebarPatient.css';
 import axiosTherapy from '../../../utils/axiosTherapy'; 
@@ -94,6 +95,12 @@ export default function SidebarPatient() {
                     </NavLink>
                 </li>
                 <li>
+                    <NavLink to="/patient/chat">
+                        <FaCommentAlt className="patient-sidebar-icon" />
+                        <span>Chat</span>
+                    </NavLink>
+                </li>
+                <li>
                     <NavLink to="/patient/community">
                         <FaCommentAlt className="patient-sidebar-icon" />
                         <span>Community</span>
@@ -103,6 +110,22 @@ export default function SidebarPatient() {
                     <NavLink to="/patient/medical-records">
                         <FaClipboardList className="patient-sidebar-icon" />
                         <span>Medical Records</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <span className="patient-sidebar-section-title">LiveKit Rooms</span>
+                </li>
+
+                <li>
+                    <NavLink to="/patient/room/join">
+                        <FaEdit className="patient-sidebar-icon" />
+                        <span>Join Room</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/patient/room/list">
+                        <FaEdit className="patient-sidebar-icon" />
+                        <span>List Rooms</span>
                     </NavLink>
                 </li>
                 <li>
