@@ -105,56 +105,6 @@ class ChatService {
     this.roomUpdateHandlers.delete(handler);
   }
 
-  // Chat Rooms
-  async getChatRooms() {
-    try {
-      const response = await axiosChat.get('/app/chat/rooms/');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching chat rooms:', error);
-      throw error;
-    }
-  }
-
-  async createChatRoom(roomData) {
-    try {
-      const response = await axiosChat.post('/app/chat/rooms/', roomData);
-      return response.data;
-    } catch (error) {
-      console.error('Error creating chat room:', error);
-      throw error;
-    }
-  }
-
-  async getChatRoomDetails(roomId) {
-    try {
-      const response = await axiosChat.get(`/app/chat/rooms/${roomId}/`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching chat room details:', error);
-      throw error;
-    }
-  }
-
-  async updateChatRoom(roomId, updateData) {
-    try {
-      const response = await axiosChat.put(`/app/chat/rooms/${roomId}/`, updateData);
-      return response.data;
-    } catch (error) {
-      console.error('Error updating chat room:', error);
-      throw error;
-    }
-  }
-
-  async archiveChatRoom(roomId) {
-    try {
-      const response = await axiosChat.delete(`/app/chat/rooms/${roomId}/`);
-      return response.data;
-    } catch (error) {
-      console.error('Error archiving chat room:', error);
-      throw error;
-    }
-  }
 
   // Messages
   async getMessages(roomId, page = 1, pageSize = 50) {
