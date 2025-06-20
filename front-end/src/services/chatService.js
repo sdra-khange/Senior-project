@@ -105,7 +105,6 @@ class ChatService {
     this.roomUpdateHandlers.delete(handler);
   }
 
-
   // Messages
   async getMessages(roomId, page = 1, pageSize = 50) {
     try {
