@@ -25,7 +25,6 @@ import PatientDoctorsList from './Pages/Dashboard/Patient/Booking details/Patien
 import PatientDoctorDetails from './Pages/Dashboard/Patient/Booking details/PatientDoctorDetails';
 import PatientAppointments from './Pages/Dashboard/Patient/PatientAppointments/PatientAppointments';
 import ManageContent from './Pages/Dashboard/Doctor/ManageContent/ManageContent';
-import ContentPage from './Pages/Dashboard/Doctor/ManageContent/ContentPage';
 import { useParams } from 'react-router-dom';
 import LiveKitRoomComponent from "./Components/livekit/LiveKitRoom";
 import CreateRoom from './Pages/Dashboard/Doctor/Room/CreateRoom';
@@ -36,6 +35,12 @@ import PatientListRooms from './Pages/Dashboard/Patient/Room/ListRooms';
 import ChatDoctor from './Pages/Dashboard/Doctor/Chat/ChatDoctor';
 import ChatPatient from './Pages/Dashboard/Patient/Chat/ChatPatient';
 import { ChatProvider } from './contexts/ChatContext';
+
+// import ManageContent from './Pages/Dashboard/Doctor/ManageContent/ManageContent';
+import ContentPage from './Pages/Dashboard/Doctor/ManageContent/ContentPage';
+import CreateBlog from './Pages/Dashboard/Doctor/ManageContent/CreateBlog';
+import AddMedia from './Pages/Dashboard/Doctor/ManageContent/AddMedia';
+import BlogList from './Pages/Dashboard/Doctor/ManageContent/BlogList';
 
 
 function VideoCallPage() {
@@ -69,6 +74,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/specialists" element={<Specialists />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/blog-list" element={<BlogList />} />
+
           
           {/* Authentication Routes */}
           <Route path="/login/admin" element={<AdminLogin />} />
@@ -78,11 +85,6 @@ function App() {
           <Route path="/doctor/signup" element={<DoctorRegister />} />
           
           {/* Admin Protected Routes */}
-          {/* <Route path="/admin/dashboard" element={
-            <ProtectedRoute allowedUserType="admin">
-              <AdminDashboard />
-            </ProtectedRoute>
-          } /> */}
           <Route path="/admin/dashboard" element={
             <ProtectedRoute allowedUserType="admin">
               <Dashboard  />
@@ -145,6 +147,22 @@ function App() {
               <ContentPage />
             </ProtectedRoute>
           } />
+        <Route path="/doctor/content-preview" element={
+          <ProtectedRoute allowedUserType="doctor">
+            <ContentPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/doctor/create-blog" element={
+          <ProtectedRoute allowedUserType="doctor">
+            <CreateBlog />
+          </ProtectedRoute>
+        } />
+        <Route path="/doctor/add-media/:blogID" element={
+          <ProtectedRoute allowedUserType="doctor">
+            <AddMedia />
+          </ProtectedRoute>
+        } />
+          
           <Route path="/doctor/room/create" element={
             <ProtectedRoute allowedUserType="doctor">
               <CreateRoom />

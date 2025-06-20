@@ -27,6 +27,9 @@ from .Views.chat import (
     MarkMessagesReadView,PatientListView
 )
 
+from .Views.Blog import BlogPostListCreate , BlogPostRetrieveUpdateDelete , BlogPostLikeView, BlogWithMediaList
+
+
 urlpatterns = [
     # Domain 
     path('domains/', DomainListCreate.as_view(), name='domain-list-create'),
@@ -65,9 +68,9 @@ urlpatterns = [
     
     
         # Content URLs
-    path('content/', ContentListCreate.as_view(), name='content-list-create'),
-    path('content/<int:pk>/', ContentRetrieveUpdateDelete.as_view(), name='content-detail'),
-    path('public/content/', PublicContentList.as_view(), name='public-content-list'),
+    # path('content/', ContentListCreate.as_view(), name='content-list-create'),
+    # path('content/<int:pk>/', ContentRetrieveUpdateDelete.as_view(), name='content-detail'),
+    # path('public/content/', PublicContentList.as_view(), name='public-content-list'),
     
     # LiveKit endpoints
     path('livekit/token/', GetTokenView.as_view(), name='livekit-token'),
@@ -84,7 +87,13 @@ urlpatterns = [
     path('chat/rooms/<int:room_id>/mark-read/', MarkMessagesReadView.as_view(), name='mark-messages-read'),
     
     path('patient/', PatientListView.as_view(), name='patient-list'),
-
+    
+    
+    
+    path('blog/', BlogPostListCreate.as_view(), name='blog-post-list-create'),
+    path('blog/<int:pk>/', BlogPostRetrieveUpdateDelete.as_view(), name='blog-post-retrieve-update-delete'),
+    path('blog/<int:pk>/like/', BlogPostLikeView.as_view(), name='blog-post-like'),
+    path('blog/media/', BlogWithMediaList.as_view(), name='blog-with-media-list'),
 ]
 
 
